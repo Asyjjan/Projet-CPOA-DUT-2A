@@ -5,7 +5,7 @@ public class LigneCommande {
 	private int quantite;
 	private double tarif;
 	
-	public LigneCommande(int idcmd, int idprod, int quantite, double tarif) {
+	public LigneCommande(int quantite, double tarif) {
 		super();
 		this.quantite = quantite;
 		this.tarif = tarif;

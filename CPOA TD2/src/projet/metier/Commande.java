@@ -5,42 +5,69 @@ import java.util.HashMap;
 
 public class Commande {
 
-	private int idcmd;
-	private LocalDate datecmd;
+	private int idcommande;
+	private LocalDate datecommande;
 	private int idclient;
 	private HashMap<Produit, LigneCommande> ligneCommande;
 	
-	public Commande(int idcmd, LocalDate datecmd, int idclient) {
+	public Commande(int idcommande, LocalDate datecommande, int idclient,
+			HashMap<Produit, LigneCommande> ligneCommande) {
 		super();
-		this.idcmd = idcmd;
-		this.datecmd = datecmd;
+		this.idcommande = idcommande;
+		this.datecommande = datecommande;
 		this.idclient = idclient;
+		this.ligneCommande = ligneCommande;
+	}
+	
+
+	public int getIdcommande() {
+		return idcommande;
 	}
 
-	public int getIdcmd() {
-		return idcmd;
+
+
+	public void setIdcommande(int idcommande) {
+		this.idcommande = idcommande;
 	}
 
-	public void setIdcmd(int idcmd) {
-		this.idcmd = idcmd;
+
+
+	public LocalDate getDatecommande() {
+		return datecommande;
 	}
 
-	public LocalDate getDatecmd() {
-		return datecmd;
+
+
+	public void setDatecommande(LocalDate datecommande) {
+		this.datecommande = datecommande;
 	}
 
-	public void setDatecmd(LocalDate datecmd) {
-		this.datecmd = datecmd;
-	}
+
 
 	public int getIdclient() {
 		return idclient;
 	}
 
+
+
 	public void setIdclient(int idclient) {
 		this.idclient = idclient;
 	}
-	
+
+
+
+	public HashMap<Produit, LigneCommande> getLigneCommande() {
+		return ligneCommande;
+	}
+
+
+
+	public void setLigneCommande(HashMap<Produit, LigneCommande> ligneCommande) {
+		this.ligneCommande = ligneCommande;
+	}
+
+
+
 	public void ajouteLigneCom(Produit prod, LigneCommande LC) {
 		ligneCommande.put(prod, LC);
 	}
