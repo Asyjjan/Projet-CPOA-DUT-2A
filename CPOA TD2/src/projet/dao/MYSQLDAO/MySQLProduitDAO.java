@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import projet.menu.Connexion;
+
 public class MySQLProduitDAO {
 	
 	public static void create(int idproduit, String nom, String description, float tarif, String visuel, int idcateg) {

@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import projet.menu.Connexion;
+
 public class MySQLLigneCommandeDAO {
 	
 public static void create(int idcommande, int idproduit, int quantite,float tarifunitaire) {

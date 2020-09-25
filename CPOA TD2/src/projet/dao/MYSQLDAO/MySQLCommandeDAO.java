@@ -7,6 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import projet.dao.modele.CommandeDAO;
+import projet.menu.Connexion;
+import projet.metier.LigneCommande;
+import projet.metier.Produit;
 
 public class MySQLCommandeDAO {
 		
@@ -21,10 +27,10 @@ public class MySQLCommandeDAO {
 					requete.setDate(2, datecommande);
 					requete.setInt(3, id_client);
 					int resu = requete.executeUpdate();
-					System.out.println("Ins�ration faite.");
+					System.out.println("Insï¿½ration faite.");
 					
 	        }catch (SQLException sqle) {
-						System.out.println("Probl�me insert " + sqle.getMessage());
+						System.out.println("Problï¿½me insert " + sqle.getMessage());
 						 			   }
 	    
 	}
@@ -37,7 +43,7 @@ public class MySQLCommandeDAO {
 					int res = requete.executeUpdate();
 					System.out.println("Suppresion faite.");
 			}catch (SQLException sqle) {
-				System.out.println("Probl�me delete " + sqle.getMessage());
+				System.out.println("Problï¿½me delete " + sqle.getMessage());
 									   }
 			}
 		
@@ -55,14 +61,14 @@ public class MySQLCommandeDAO {
 					System.out.println("Modification faite.");
 					
 	        }catch (SQLException sqle) {
-				System.out.println("Probl�me modification " + sqle.getMessage());
+				System.out.println("Problï¿½me modification " + sqle.getMessage());
 			   }
 	    }
 		
 		@SuppressWarnings("unchecked")
-		public static ArrayList<MySQLCommandeDAO> Commande(){
+		public static ArrayList<CommandeDAO> Commande(){
 			@SuppressWarnings("rawtypes")
-			ArrayList<MySQLCommandeDAO> p= new ArrayList();
+			ArrayList<CommandeDAO> p= new ArrayList();
 			try {
 				Connection laConnexion = Connexion.creeConnexion();
 				PreparedStatement requete = laConnexion.prepareStatement("select * from Commande");
@@ -73,9 +79,44 @@ public class MySQLCommandeDAO {
 					}
 					
 			}catch (SQLException sqle) {
-				System.out.println("Probl�me ArrayList " + sqle.getMessage());
+				System.out.println("Problï¿½me ArrayList " + sqle.getMessage());
 			   }
 			return p;
 			
+		}
+		
+		@Override
+		public Commande getById(int id) throws SQLException {
+			Commande commande = null;
+			
+			HashMap<Produit, LigneCommande> ligneCommande = new HashMap<Produit, LigneCommande>();
+			
+			Connection laConnexion = Connexion.creeConnexion();
+			
+			//requete pour obtenir la commande desiree
+			PreparedStatement requete = laConnexion.prepareStatement("select * from `Commande` where id_commande=" + id);
+			ResultSet res = requete.executeQuery();
+			
+			if (res.next()) {
+				//requete pour obtenir toute les lignes de commandes concern�es par cette commande
+				PreparedStatement requeteLc = laConnexion.prepareStatement("select * from `Ligne_Commande` where id_commande=" + id);
+				ResultSet resLc = requeteLc.executeQuery();
+				
+				while (resLc.next()) {
+					//requete pour obtenir pour les produits concern�s par la commande
+					PreparedStatement requeteProd = laConnexion.prepareStatement("select * from `Produit` where id=" + resLc.getInt(2));
+					ResultSet resProd = requeteProd.executeQuery();
+					
+					ligneCommande.put(new Produit(resProd.getInt(1), resProd.getString(2), resProd.getString(3), resProd.getFloat(4), resProd.getString(5), resProd.getInt(6)), 
+						new LigneCommande(resLc.getInt(1), resLc.getInt(2), resLc.getInt(3), resLc.getFloat(4)));
+				}
+			
+				commande = new Commande(res.getInt(1), res.getDate(2).toLocalDate(), res.getInt(3), ligneCommande);
+			}
+			
+			if (laConnexion != null)
+				laConnexion.close();
+			
+			return commande;
 		}
 }
