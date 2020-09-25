@@ -1,8 +1,9 @@
-package projet.dao;
+package projet.dao.ListeMemoire;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import projet.dao.modele.CategorieDAO;
 import projet.metier.Categorie;
 
 public class ListeMemoireCategorieDAO implements CategorieDAO {

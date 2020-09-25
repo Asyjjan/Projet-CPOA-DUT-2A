@@ -1,10 +1,11 @@
-package projet.dao;
+package projet.dao.modele;
 
 import java.util.ArrayList;
 
+import projet.dao.DAO;
 import projet.metier.Categorie;
 
-public interface CategorieDAO{
+public interface CategorieDAO extends DAO<Categorie>{
 
 	boolean create(Categorie objet);
 
