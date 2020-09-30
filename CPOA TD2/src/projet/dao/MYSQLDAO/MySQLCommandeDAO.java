@@ -11,10 +11,21 @@ import java.util.HashMap;
 
 import projet.dao.modele.CommandeDAO;
 import projet.menu.Connexion;
-import projet.metier.LigneCommande;
-import projet.metier.Produit;
+import projet.metier.*;
 
 public class MySQLCommandeDAO {
+	
+	private static MySQLCommandeDAO instance;
+
+	private MySQLCommandeDAO() {
+	}
+
+	public static MySQLCommandeDAO getInstance() {
+		if (instance == null) {
+			instance = new MySQLCommandeDAO();
+		}
+		return instance;
+	}
 		
 		public static void create(int id_commande,LocalDate datecommande,int id_client) {
 	        
@@ -24,7 +35,7 @@ public class MySQLCommandeDAO {
 	            
 	                PreparedStatement requete = laConnexion.prepareStatement("insert into Commande (id_commande, date_commande, id_client) values (?,?,?)");
 					requete.setInt(1, id_commande);
-					requete.setDate(2, datecommande);
+					requete.setDate(2, java.sql.Date.valueOf(datecommande));
 					requete.setInt(3, id_client);
 					int resu = requete.executeUpdate();
 					System.out.println("Insï¿½ration faite.");
@@ -54,7 +65,7 @@ public class MySQLCommandeDAO {
 	            Statement modification = laConnexion.createStatement();
 	            
 	                PreparedStatement requete = laConnexion.prepareStatement("Update Commande set date_commande=?, id_client=? where id_commande=?");
-					requete.setDate(1,datecommande);
+	                requete.setDate(1, java.sql.Date.valueOf(datecommande));
 					requete.setInt(2,idclient);	
 					requete.setInt(3, idcommande);
 					int resu = requete.executeUpdate();
@@ -66,16 +77,16 @@ public class MySQLCommandeDAO {
 	    }
 		
 		@SuppressWarnings("unchecked")
-		public static ArrayList<CommandeDAO> Commande(){
+		public static ArrayList<Commande> Commande(){
 			@SuppressWarnings("rawtypes")
-			ArrayList<CommandeDAO> p= new ArrayList();
+			ArrayList<Commande> p= new ArrayList();
 			try {
 				Connection laConnexion = Connexion.creeConnexion();
 				PreparedStatement requete = laConnexion.prepareStatement("select * from Commande");
 					ResultSet res = requete.executeQuery();
 					
 					while (res.next()) {
-						p.add(new Commande (res.getDate(1),res.getInt(2),res.getInt(3)));
+						p.add(new Commande (res.getInt(1), res.getDate(2).toLocalDate(), res.getInt(3), ligneCommande);
 					}
 					
 			}catch (SQLException sqle) {
@@ -85,7 +96,6 @@ public class MySQLCommandeDAO {
 			
 		}
 		
-		@Override
 		public Commande getById(int id) throws SQLException {
 			Commande commande = null;
 			

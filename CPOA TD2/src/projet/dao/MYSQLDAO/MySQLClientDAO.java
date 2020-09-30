@@ -8,9 +8,22 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import projet.menu.Connexion;
+import projet.metier.*;
 
 public class MySQLClientDAO {
 		
+	private static MySQLClientDAO instance;
+
+	private MySQLClientDAO() {
+	}
+
+	public static MySQLClientDAO getInstance() {
+		if (instance == null) {
+			instance = new MySQLClientDAO();
+		}
+		return instance;
+	}
+	
 	public static void create(int idclient, String nom, String prenom) {
         
         try {
@@ -68,16 +81,16 @@ public class MySQLClientDAO {
     }
 	
 	@SuppressWarnings("unchecked")
-	public static ArrayList<MySQLClientDAO> Client(){
+	public static ArrayList<Client> Client(){
 		@SuppressWarnings("rawtypes")
-		ArrayList<MySQLClientDAO> cl= new ArrayList();
+		ArrayList<Client> cl= new ArrayList();
 		try {
 			Connection laConnexion = Connexion.creeConnexion();
 			PreparedStatement requete = laConnexion.prepareStatement("select * from Client");
 				ResultSet res = requete.executeQuery();
 				
 				while (res.next()) {
-					cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3)));
+					cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3), null, null, null, null, null, null, null));
 				}
 				
 		}catch (SQLException sqle) {

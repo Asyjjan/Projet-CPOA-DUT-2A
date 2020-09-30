@@ -1,10 +1,13 @@
 package projet.dao.ListeMemoire;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import projet.dao.DAOFactory;
+import projet.dao.Persistance;
 import projet.dao.modele.CommandeDAO;
 import projet.metier.Commande;
 import projet.metier.LigneCommande;
@@ -28,12 +31,18 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 
 	private ListeMemoireCommandeDAO() {
 
-		this.donnees = new ArrayList<Commande>();
+        this.donnees = new ArrayList<Commande>();
+        
+        HashMap <Produit, LigneCommande> ligneCommande1 = new HashMap<Produit, LigneCommande>(); 
+        ligneCommande1.put(new Produit(2,"Sonic te kiffe", "Inspire par la saga Saga (c''est plus fort que toi !), un pull 100% gamer qui te permettra de faire baver d''envie tes petits camarades de jeu.", (float)41.5, "pull1.png", 1), new LigneCommande(1,2,2,(float)41.5));
+        ligneCommande1.put(new Produit(6, "La chaleur des rennes", "Classique mais efficace, un bonnet dont l''elegance n''est pas a souligner, il vous grattera comme il faut !", (float)15, "bonnet0.png", 2), new LigneCommande(1,6,1,15));
+        this.donnees.add(new Commande(1, LocalDate.of(2020, Month.SEPTEMBER, 02),1,ligneCommande1)); 
+        
+        HashMap <Produit, LigneCommande> ligneCommande2 = new HashMap<Produit, LigneCommande>(); 
+        ligneCommande2.put(new Produit(12, "Dall", "Joyeux Noel avec nos petits lutins dansants !", (float)35, "bonnet1.png", 2), new LigneCommande(2,12,4,35));
+        this.donnees.add(new Commande(2, LocalDate.of(2020, Month.AUGUST, 30),1,ligneCommande2)); 
 
-		HashMap lignecommande<new Produit(), 
-		this.donnees.add(new Commande(1, "2020-09-02 13:12:00", 1, ligneCommande));
-		this.donnees.add(new Commande(2, "2020-08-30 11:22:00", 1, ligneCommande));
-	}
+    }
 
 
 	@Override
@@ -45,7 +54,17 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 
 			objet.setIdcommande(objet.getIdcommande() + 1);
 		}
-		boolean ok = this.donnees.add(objet);
+		 boolean ok = true;
+
+	        try {
+	            DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().getById(objet.getIdclient());
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	            ok = false;
+	        }
+	        
+	        if (ok)
+	            this.donnees.add(objet);
 		
 		return ok;
 	}
@@ -53,13 +72,23 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 	@Override
 	public boolean update(Commande objet) {
 		
+		boolean ok = true; 
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
 		if (idx == -1) {
+			ok= false;
 			throw new IllegalArgumentException("Tentative de modification d'une commande inexistante");
-		} else {
-			
-			this.donnees.set(idx, objet);
+		} 
+		else {
+			try {
+	            DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().getById(objet.getIdclient());
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	            ok = false;
+	        }
+	        
+	        if (ok)
+	        	this.donnees.set(idx, objet);
 		}
 		
 		return true;
@@ -84,9 +113,12 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 	@Override
 	public Commande getById(int id) {
 		// Ne fonctionne que si l'objet métier est bien fait...
-		int idx = this.donnees.indexOf(new Commande());
+		
+		HashMap<Produit, LigneCommande> lignecommandetemoin = new HashMap<Produit, LigneCommande>();
+		
+		int idx = this.donnees.indexOf(new Commande(id, LocalDate.of(2020, Month.JANUARY, 1), 0,lignecommandetemoin));
 		if (idx == -1) {
-			throw new IllegalArgumentException("Aucun client ne possède cet identifiant");
+			throw new IllegalArgumentException("Aucune commande ne possède cet identifiant");
 		} else {
 			return this.donnees.get(idx);
 		}

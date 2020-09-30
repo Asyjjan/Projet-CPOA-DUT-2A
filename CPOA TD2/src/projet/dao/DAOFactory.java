@@ -1,5 +1,11 @@
 package projet.dao;
 
+import projet.dao.modele.CategorieDAO;
+import projet.dao.modele.ClientDAO;
+import projet.dao.modele.CommandeDAO;
+import projet.dao.modele.LigneCommandeDAO;
+import projet.dao.modele.ProduitDAO;
+
 public abstract class DAOFactory {
 	public static DAOFactory getDAOFactory(Persistance cible) {
 		

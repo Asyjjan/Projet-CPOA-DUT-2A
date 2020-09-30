@@ -8,8 +8,21 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import projet.menu.Connexion;
+import projet.metier.*;
 
 public class MySQLCategorieDAO {
+	
+	private static MySQLCategorieDAO instance;
+
+	private MySQLCategorieDAO() {
+	}
+
+	public static MySQLCategorieDAO getInstance() {
+		if (instance == null) {
+			instance = new MySQLCategorieDAO();
+		}
+		return instance;
+	}
 	
 	public static void create(int idcateg, String titrecateg, String visuel) {
 		
@@ -62,22 +75,18 @@ public class MySQLCategorieDAO {
     }
 	
 	@SuppressWarnings("unchecked")
-	public static ArrayList<MySQLCategorieDAO> Categorie(){
-		@SuppressWarnings("rawtypes")
-		ArrayList<MySQLCategorieDAO> c= new ArrayList();
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("select * from Categorie");
-				ResultSet res = requete.executeQuery();
-				
-				while (res.next()) {
-					c.add(new Categorie (res.getInt(1),res.getString(2),res.getString(3)));
-				}
-				
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me ArrayList " + sqle.getMessage());
-		   }
-		return c;
-		
+	public static ArrayList<Categorie> Categorie() throws SQLException{
+		ArrayList<Categorie> liste = new ArrayList<Categorie>();
+		Connection laConnexion = Connexion.creeConnexion();
+		Statement requete = laConnexion.createStatement();
+		ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
+		while (res.next()) {
+			int id = res.getInt(1);
+			String titre = res.getString(2);
+			String visuel = res.getString(3);
+			Categorie categ = new Categorie(id, titre, visuel);
+			liste.add(categ);
+		}
+		return liste;
 	}
 }
