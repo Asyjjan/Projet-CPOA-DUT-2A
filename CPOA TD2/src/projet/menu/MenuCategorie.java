@@ -37,7 +37,12 @@ public class MenuCategorie {
 			int idcateg = sct1.nextInt();
 			String titrecateg = sct2.nextLine();
 			String visuel = sct3.nextLine();
+			if(persistance == 1) {
 			MySQLCategorieDAO.create(idcateg, titrecateg, visuel);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().create(new Categorie(idcateg,titrecateg,visuel));
+			}
 		}
 		break;
 
@@ -54,7 +59,7 @@ public class MenuCategorie {
 			MySQLCategorieDAO.update(idcateg, titrecateg, visuel);
 			}
 			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().create(new Categorie(idcateg,titrecateg,visuel));
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().update(new Categorie(idcateg,titrecateg,visuel));
 			}
 		}
 		break;
@@ -63,7 +68,12 @@ public class MenuCategorie {
 		{
 			System.out.println("Afin de supprimer une catégorie, veuillez renseigner l'ID de la catégorie :");
 			int idcateg = sct1.nextInt();
+			if(persistance == 1) {
 			MySQLCategorieDAO.delete(idcateg);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().delete(new Categorie(idcateg,null,null));
+			}
 		}
 		break;
 
@@ -71,10 +81,15 @@ public class MenuCategorie {
 		case 4:
 		{
 			System.out.println("Vous avez demander Ã  voir l'ensemble des catégories :");
-			ArrayList<Categorie> liste= MySQLCategorieDAO.Categorie();
-			for(Categorie c : liste)
-			{
-				System.out.println(c.toString());
+			if(persistance == 1) {
+				ArrayList<Categorie> liste= MySQLCategorieDAO.Categorie();
+				for(Categorie c : liste)
+				{
+					System.out.println(c.toString());
+				}
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().findAll();
 			}
 		}
 		break;
