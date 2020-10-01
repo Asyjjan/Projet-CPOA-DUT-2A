@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import projet.dao.modele.CategorieDAO;
 import projet.menu.Connexion;
@@ -24,7 +25,6 @@ public class MySQLCategorieDAO{
 		}
 		return instance;
 	}
-
 	public static void create(int idcateg, String titrecateg, String visuel) {
 
 		try {
@@ -90,6 +90,5 @@ public class MySQLCategorieDAO{
 		}
 		return liste;
 	}
-
 
 }

@@ -46,7 +46,7 @@ public class MySQLCommandeDAO {
 
 	}
 
-	public static void Delete(int idcommande) throws SQLException {
+	public static void delete(int idcommande) throws SQLException {
 		try {
 			Connection laConnexion = Connexion.creeConnexion();
 			PreparedStatement requete = laConnexion.prepareStatement("delete from Commande where id_commande=?");

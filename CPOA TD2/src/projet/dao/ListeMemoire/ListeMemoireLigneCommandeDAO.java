@@ -5,14 +5,12 @@ import java.util.List;
 
 import projet.dao.modele.LigneCommandeDAO;
 import projet.metier.LigneCommande;
-import projet.metier.Commande;
 
 public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 
 	private static ListeMemoireLigneCommandeDAO instance;
 
 	private List<LigneCommande> donnees;
-
 
 	public static ListeMemoireLigneCommandeDAO getInstance() {
 
@@ -27,10 +25,10 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 
 		this.donnees = new ArrayList<LigneCommande>();
 
-		this.donnees.add(new LigneCommande());
-		this.donnees.add(new LigneCommande());
+		this.donnees.add(new LigneCommande(1, 2, 2, 41));
+		this.donnees.add(new LigneCommande(1, 6, 1, 15));
+		this.donnees.add(new LigneCommande(2, 12, 4, 35));
 	}
-
 
 	@Override
 	public boolean create(LigneCommande objet) {
@@ -39,7 +37,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 		// Ne fonctionne que si l'objet métier est bien fait...
 		while (this.donnees.contains(objet)) {
 
-			objet.setIdprod(objet.getIdprod() + 1);
+			objet.setIdcommande(objet.getIdcommande() + 1);
 		}
 		boolean ok = this.donnees.add(objet);
 
@@ -80,7 +78,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	@Override
 	public LigneCommande getById(int id) {
 		// Ne fonctionne que si l'objet métier est bien fait...
-		int idx = this.donnees.indexOf(new LigneCommande());
+		int idx = this.donnees.indexOf(new LigneCommande(1, 2, 2, 41));
 		if (idx == -1) {
 			throw new IllegalArgumentException("Aucune ligneCommande ne possède cet identifiant");
 		} else {
@@ -93,4 +91,3 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 		return (ArrayList<LigneCommande>) this.donnees;
 	}
 }
-

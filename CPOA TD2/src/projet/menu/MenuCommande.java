@@ -1,6 +1,9 @@
 package projet.menu;
 
 import java.sql.Date;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -11,8 +14,9 @@ import projet.metier.Commande;
 
 public class MenuCommande {
 
-	public static void menuCommande() {
+	public static void menuCommande(int bdd) throws SQLException {
 		
+		int persistance = bdd;		
 		System.out.println("Bonjour, voici le menu des commandes.");
 		System.out.println("Pour ajouter une commande, taper 1");
 		System.out.println("Pour modifier une commande, taper 2");
@@ -29,11 +33,13 @@ public class MenuCommande {
 		{
 			System.out.println("Afin d'ajouter une commande, respecter bien l'ordre des données Ã  écrire :");
 			System.out.println("ID commande");
-			System.out.println("Date commande");
+			System.out.println("Date commande \"dd/MM/yyyy\"");
 			System.out.println("ID client");
 			int idcommande = scc1.nextInt();
-			Date datecommande = scc2.nextLine();
-			String idclient = scc3.nextLine();
+			String date = scc2.nextLine();
+			DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    LocalDate datecommande = LocalDate.parse(date, formatage);
+			int idclient = scc3.nextInt();
 			MySQLCommandeDAO.create(idcommande, datecommande, idclient);
 		}
 		break;
@@ -42,12 +48,14 @@ public class MenuCommande {
 		{
 			System.out.println("Afin de modifier une commande, respecter bien l'ordre des données Ã  écrire :");
 			System.out.println("ID commande");
-			System.out.println("Date commande à modifié");
+			System.out.println("Date commande à modifié \"dd/MM/yyyy\" ");
 			System.out.println("Id client à modifié");
 			int idcommande = scc1.nextInt();
-			Date datecommande = scc2.nextLine();
-			String idclient = scc3.nextLine();
-			MySQLClientDAO.update(idcommande, datecommande, idclient);
+			String date = scc2.nextLine();
+			DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		    LocalDate datecommande = LocalDate.parse(date, formatage);
+			int idclient = scc3.nextInt();
+			MySQLCommandeDAO.update(idcommande, datecommande, idclient);
 		}
 		break;
 
@@ -55,7 +63,7 @@ public class MenuCommande {
 		{
 			System.out.println("Afin de supprimer une commande, veuillez renseigner l'ID du client :");
 			int idcommande = scc1.nextInt();
-			MySQLClientDAO.delete(idcommande);
+			MySQLCommandeDAO.delete(idcommande);
 		}
 		break;
 

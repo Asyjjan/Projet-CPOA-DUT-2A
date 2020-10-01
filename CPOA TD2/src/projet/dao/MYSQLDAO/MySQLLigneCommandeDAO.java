@@ -6,9 +6,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collection;
 
 import projet.menu.Connexion;
 import projet.metier.*;
+import projet.metier.LigneCommande;
 
 public class MySQLLigneCommandeDAO {
 
@@ -44,15 +46,16 @@ public class MySQLLigneCommandeDAO {
 
 	}
 
-	public static void delete(int idcommande ,int idproduit) throws SQLException {
+	public static void delete(int idcommande, int idproduit) throws SQLException {
 		try {
 			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("delete from Ligne_commande where id_commande=? and id_produit=?");
+			PreparedStatement requete = laConnexion
+					.prepareStatement("delete from Ligne_commande where id_commande=? and id_produit=?");
 			requete.setInt(1, idcommande);
 			requete.setInt(2, idproduit);
 			int res = requete.executeUpdate();
 			System.out.println("Suppresion faite.");
-		}catch (SQLException sqle) {
+		} catch (SQLException sqle) {
 			System.out.println("Probl�me delete " + sqle.getMessage());
 		}
 	}

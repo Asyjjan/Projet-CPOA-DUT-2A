@@ -9,8 +9,9 @@ import projet.metier.Client;
 
 public class MenuClient {
 
-	public static void menuClient() throws SQLException {
+	public static void menuClient(int bdd) throws SQLException {
 
+		int persistance = bdd;
 		System.out.println("Bonjour, voici le menu des clients.");
 		System.out.println("Pour ajouter un client, taper 1");
 		System.out.println("Pour modifier un client, taper 2");

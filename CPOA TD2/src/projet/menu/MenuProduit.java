@@ -10,7 +10,9 @@ import projet.metier.Produit;
 
 public class MenuProduit {
 
-	public static void menuProduit() throws SQLException {
+	public static void menuProduit(int bdd) throws SQLException {
+		
+		int persistance = bdd;
 		System.out.println("Bonjour, voici le menu des produits.");
 		System.out.println("Pour ajouter un produit, taper 1");
 		System.out.println("Pour modifier un produit, taper 2");

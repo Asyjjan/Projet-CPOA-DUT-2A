@@ -47,5 +47,11 @@ public class LigneCommande {
 		this.tarif = tarif;
 	}
 
+	@Override
+	public String toString() {
+		return "LigneCommande [idcommande=" + idcommande + ", idproduit=" + idproduit + ", quantite=" + quantite
+				+ ", tarif=" + tarif + "]";
+	}
+
 
 }

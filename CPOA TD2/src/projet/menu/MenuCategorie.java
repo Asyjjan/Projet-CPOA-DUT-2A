@@ -4,17 +4,23 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import projet.dao.DAOFactory;
+import projet.dao.Persistance;
+import projet.dao.ListeMemoire.ListeMemoireCategorieDAO;
 import projet.dao.MYSQLDAO.MySQLCategorieDAO;
 import projet.metier.Categorie;
 
 public class MenuCategorie {
 
-	public static void menuCategorie() throws SQLException {
+	public static void menuCategorie(int bdd) throws SQLException {
+		
+		int persistance = bdd;
 		System.out.println("Bonjour, voici le menu des catégories.");
 		System.out.println("Pour ajouter une catégorie, taper 1");
 		System.out.println("Pour modifier une catégorie, taper 2");
 		System.out.println("Pour supprimer une catégorie, taper 3");
 		System.out.println("Pour afficher toutes les catégories, taper 4");
+		System.out.println("Pour afficher une catégorie, taper 5");
 
 		Scanner sct1 = new Scanner(System.in);
 		Scanner sct2 = new Scanner(System.in);
@@ -44,7 +50,12 @@ public class MenuCategorie {
 			int idcateg = sct1.nextInt();
 			String titrecateg = sct2.nextLine();
 			String visuel = sct3.nextLine();
+			if(persistance == 1) {
 			MySQLCategorieDAO.update(idcateg, titrecateg, visuel);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().create(new Categorie(idcateg,titrecateg,visuel));
+			}
 		}
 		break;
 

@@ -31,7 +31,6 @@ public class ListeMemoireCategorieDAO implements CategorieDAO {
 	}
 
 
-	@Override
 	public boolean create(Categorie objet) {
 
 		objet.setIdcateg(3);

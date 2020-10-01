@@ -9,6 +9,7 @@ public class Main {
 	@SuppressWarnings("resource")
 	public static void main(String[] args) throws SQLException{
 
+		int bdd =0;
 		System.out.println("Bonjour, voici le menu de l'application.");
 		System.out.println("Pour accéder au menu des catégories, taper 1");
 		System.out.println("Pour accéder au menu des clients, taper 2");
@@ -22,32 +23,67 @@ public class Main {
 		switch (m) {
 		case 1:
 		{
-			MenuCategorie.menuCategorie();
+			Scanner d = new Scanner(System.in);
+			System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			if(bdd <1 || bdd>2) {
+				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			}
+			MenuCategorie.menuCategorie(bdd);
 		}
 
 		break;
 
 		case 2:
 		{
-			MenuClient.menuClient();
+			Scanner d = new Scanner(System.in);
+			System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			if(bdd <1 || bdd>2) {
+				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			}
+			MenuClient.menuClient(bdd);
 		}
 		break;
 
 		case 3:
 		{
-			MenuProduit.menuProduit();
+			Scanner d = new Scanner(System.in);
+			System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			if(bdd <1 || bdd>2) {
+				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			}
+			MenuProduit.menuProduit(bdd);
 		}
 		break;
-		
+
 		case 4:
 		{
-			MenuCommande.menuCommande();
+			Scanner d = new Scanner(System.in);
+			System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			if(bdd <1 || bdd>2) {
+				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			}
+			MenuCommande.menuCommande(bdd);
 		}
 		break;
-		
+
 		case 5:
 		{
-			MenuLigneCommande.menuLigneCommande();
+			Scanner d = new Scanner(System.in);
+			System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			if(bdd <1 || bdd>2) {
+				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
+			bdd = d.nextInt();
+			}
+			MenuLigneCommande.menuLigneCommande(bdd);
 		}
 		break;
 
