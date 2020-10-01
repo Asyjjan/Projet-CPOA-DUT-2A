@@ -39,13 +39,12 @@ public class MenuCommande {
 			LocalDate datecommande = LocalDate.parse(date, formatage);
 			int idclient = scc3.nextInt();
 			if (persistance == 1) {
-				MySQLCommandeDAO.create(idcommande, date, formatage, datecommande);
+				MySQLCommandeDAO.create(idcommande, datecommande, idclient);
 			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO()
-						.create(new Commande(idcommande, date, formatage, datecommande));
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO().create(new Commande(idcommande, datecommande, idclient, null));
 			}
 		}
-			break;
+		break;
 
 		case 2: {
 			System.out.println("Afin de modifier une commande, respecter bien l'ordre des données Ã  écrire :");
@@ -58,14 +57,14 @@ public class MenuCommande {
 			LocalDate datecommande = LocalDate.parse(date, formatage);
 			int idclient = scc3.nextInt();
 			if (persistance == 1) {
-				MySQLCommandeDAO.update(idcommande, date, formatage, datecommande);
+				MySQLCommandeDAO.update(idcommande, datecommande, idclient);
 			} else if (persistance == 2) {
 				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO()
-						.update(new Commande(idcommande, date, formatage, datecommande));
+				.update(new Commande(idcommande, datecommande, idclient, null));
 			}
 
 		}
-			break;
+		break;
 
 		case 3: {
 			System.out.println("Afin de supprimer une commande, veuillez renseigner l'ID du client :");
@@ -73,11 +72,10 @@ public class MenuCommande {
 			if (persistance == 1) {
 				MySQLCommandeDAO.delete(idcommande);
 			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO()
-						.delete(new Commande(idcommande, null, null, null));
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO().delete(new Commande(idcommande, null, idcommande, null));
 			}
 		}
-			break;
+		break;
 
 		case 4: {
 			System.out.println("Vous avez demander Ã  voir l'ensemble des commandes :");
@@ -91,7 +89,7 @@ public class MenuCommande {
 			}
 
 		}
-			break;
+		break;
 		}
 	}
 }

@@ -13,7 +13,7 @@ import projet.metier.Categorie;
 public class MenuCategorie {
 
 	public static void menuCategorie(int bdd) throws SQLException {
-		
+
 		int persistance = bdd;
 		System.out.println("Bonjour, voici le menu des catégories.");
 		System.out.println("Pour ajouter une catégorie, taper 1");
@@ -38,7 +38,7 @@ public class MenuCategorie {
 			String titrecateg = sct2.nextLine();
 			String visuel = sct3.nextLine();
 			if(persistance == 1) {
-			MySQLCategorieDAO.create(idcateg, titrecateg, visuel);
+				MySQLCategorieDAO.create(idcateg, titrecateg, visuel);
 			}
 			else if(persistance == 2) {
 				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().create(new Categorie(idcateg,titrecateg,visuel));
@@ -56,7 +56,7 @@ public class MenuCategorie {
 			String titrecateg = sct2.nextLine();
 			String visuel = sct3.nextLine();
 			if(persistance == 1) {
-			MySQLCategorieDAO.update(idcateg, titrecateg, visuel);
+				MySQLCategorieDAO.update(idcateg, titrecateg, visuel);
 			}
 			else if(persistance == 2) {
 				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().update(new Categorie(idcateg,titrecateg,visuel));
@@ -69,7 +69,7 @@ public class MenuCategorie {
 			System.out.println("Afin de supprimer une catégorie, veuillez renseigner l'ID de la catégorie :");
 			int idcateg = sct1.nextInt();
 			if(persistance == 1) {
-			MySQLCategorieDAO.delete(idcateg);
+				MySQLCategorieDAO.delete(idcateg);
 			}
 			else if(persistance == 2) {
 				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCategorieDAO().delete(new Categorie(idcateg,null,null));

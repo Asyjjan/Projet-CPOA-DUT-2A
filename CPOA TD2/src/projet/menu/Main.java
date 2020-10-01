@@ -28,7 +28,7 @@ public class Main {
 			bdd = d.nextInt();
 			if(bdd <1 || bdd>2) {
 				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
-			bdd = d.nextInt();
+				bdd = d.nextInt();
 			}
 			MenuCategorie.menuCategorie(bdd);
 		}
@@ -42,7 +42,7 @@ public class Main {
 			bdd = d.nextInt();
 			if(bdd <1 || bdd>2) {
 				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
-			bdd = d.nextInt();
+				bdd = d.nextInt();
 			}
 			MenuClient.menuClient(bdd);
 		}
@@ -55,7 +55,7 @@ public class Main {
 			bdd = d.nextInt();
 			if(bdd <1 || bdd>2) {
 				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
-			bdd = d.nextInt();
+				bdd = d.nextInt();
 			}
 			MenuProduit.menuProduit(bdd);
 		}
@@ -68,7 +68,7 @@ public class Main {
 			bdd = d.nextInt();
 			if(bdd <1 || bdd>2) {
 				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
-			bdd = d.nextInt();
+				bdd = d.nextInt();
 			}
 			MenuCommande.menuCommande(bdd);
 		}
@@ -81,7 +81,7 @@ public class Main {
 			bdd = d.nextInt();
 			if(bdd <1 || bdd>2) {
 				System.out.println("Comment voulez vous enregistrer les données ? 1 : MYSQL ; 2 : LISTE MEMOIRE");
-			bdd = d.nextInt();
+				bdd = d.nextInt();
 			}
 			MenuLigneCommande.menuLigneCommande(bdd);
 		}

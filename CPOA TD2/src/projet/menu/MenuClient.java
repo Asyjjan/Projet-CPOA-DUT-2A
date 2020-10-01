@@ -4,7 +4,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import projet.dao.DAOFactory;
+import projet.dao.Persistance;
+import projet.dao.MYSQLDAO.MySQLCategorieDAO;
 import projet.dao.MYSQLDAO.MySQLClientDAO;
+import projet.metier.Categorie;
 import projet.metier.Client;
 
 public class MenuClient {
@@ -33,7 +37,12 @@ public class MenuClient {
 			int idclient = scc1.nextInt();
 			String nom = scc2.nextLine();
 			String prenom = scc3.nextLine();
-			MySQLClientDAO.create(idclient, nom, prenom);
+			if(persistance == 1) {
+				MySQLClientDAO.create(idclient, nom, prenom);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().create(new Client(idclient,nom,prenom, null, null, null, null, null, null, null));
+			}
 		}
 		break;
 
@@ -46,7 +55,12 @@ public class MenuClient {
 			int idclient = scc1.nextInt();
 			String nom = scc2.nextLine();
 			String prenom = scc3.nextLine();
-			MySQLClientDAO.update(idclient, nom, prenom);
+			if(persistance == 1) {
+				MySQLClientDAO.update(idclient, nom, prenom);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().update(new Client(idclient,nom,prenom, null, null, null, null, null, null, null));
+			}
 		}
 		break;
 
@@ -54,7 +68,12 @@ public class MenuClient {
 		{
 			System.out.println("Afin de supprimer un client, veuillez renseigner l'ID du client :");
 			int idclient = scc1.nextInt();
-			MySQLClientDAO.delete(idclient);
+			if(persistance == 1) {
+				MySQLClientDAO.delete(idclient);
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().delete(new Client(idclient,null,null, null, null, null, null, null, null, null));
+			}
 		}
 		break;
 
@@ -62,10 +81,15 @@ public class MenuClient {
 		case 4:
 		{
 			System.out.println("Vous avez demander à voir l'ensemble des clients :");
-			ArrayList<Client> liste2= MySQLClientDAO.Client();
-			for(Client cl : liste2)
-			{
-				System.out.println(cl.toString());
+			if(persistance == 1) {
+				ArrayList<Client> liste2= MySQLClientDAO.Client();
+				for(Client cl : liste2)
+				{
+					System.out.println(cl.toString());
+				}
+			}
+			else if(persistance == 2) {
+				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getClientDAO().findAll();
 			}
 		}
 		break;
