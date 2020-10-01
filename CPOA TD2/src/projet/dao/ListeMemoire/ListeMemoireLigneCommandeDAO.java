@@ -42,22 +42,22 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 			objet.setIdprod(objet.getIdprod() + 1);
 		}
 		boolean ok = this.donnees.add(objet);
-		
+
 		return ok;
 	}
 
 	@Override
 	public boolean update(LigneCommande objet) {
-		
+
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
 		if (idx == -1) {
 			throw new IllegalArgumentException("Tentative de modification d'une ligneCommande inexistante");
 		} else {
-			
+
 			this.donnees.set(idx, objet);
 		}
-		
+
 		return true;
 	}
 
@@ -65,7 +65,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	public boolean delete(LigneCommande objet) {
 
 		LigneCommande supprime;
-		
+
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
 		if (idx == -1) {
@@ -73,7 +73,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 		} else {
 			supprime = this.donnees.remove(idx);
 		}
-		
+
 		return objet.equals(supprime);
 	}
 

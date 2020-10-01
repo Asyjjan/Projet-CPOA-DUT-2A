@@ -41,22 +41,22 @@ public class ListeMemoireCategorieDAO implements CategorieDAO {
 			objet.setIdcateg(objet.getIdcateg() + 1);
 		}
 		boolean ok = this.donnees.add(objet);
-		
+
 		return ok;
 	}
 
 	@Override
 	public boolean update(Categorie objet) {
-		
+
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
 		if (idx == -1) {
 			throw new IllegalArgumentException("Tentative de modification d'une categorie inexistante");
 		} else {
-			
+
 			this.donnees.set(idx, objet);
 		}
-		
+
 		return true;
 	}
 
@@ -64,7 +64,7 @@ public class ListeMemoireCategorieDAO implements CategorieDAO {
 	public boolean delete(Categorie objet) {
 
 		Categorie supprime;
-		
+
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
 		if (idx == -1) {
@@ -72,7 +72,7 @@ public class ListeMemoireCategorieDAO implements CategorieDAO {
 		} else {
 			supprime = this.donnees.remove(idx);
 		}
-		
+
 		return objet.equals(supprime);
 	}
 

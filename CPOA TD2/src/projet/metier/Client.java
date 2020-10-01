@@ -12,7 +12,7 @@ public class Client {
 	private String adrcodepostal;
 	private String adrville;
 	private String adrpays;
-	
+
 	public Client(int idclient, String nom, String prenom, String identifiant, String mdp, String adrnumero,
 			String adrvoie, String adrcodepostal, String adrville, String adrpays) {
 		super();
@@ -107,9 +107,16 @@ public class Client {
 	public void setAdrpays(String adrpays) {
 		this.adrpays = adrpays;
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Client [idclient=" + idclient + ", nom=" + nom + ", prenom=" + prenom + ", identifiant=" + identifiant
+				+ ", mdp=" + mdp + ", adrnumero=" + adrnumero + ", adrvoie=" + adrvoie + ", adrcodepostal="
+				+ adrcodepostal + ", adrville=" + adrville + ", adrpays=" + adrpays + "]";
+	}
+
+
+
+
+
 }

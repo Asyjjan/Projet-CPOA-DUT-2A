@@ -1,5 +1,10 @@
 package projet.dao;
 
+import projet.dao.MYSQLDAO.MySQLCategorieDAO;
+import projet.dao.MYSQLDAO.MySQLClientDAO;
+import projet.dao.MYSQLDAO.MySQLCommandeDAO;
+import projet.dao.MYSQLDAO.MySQLLigneCommandeDAO;
+import projet.dao.MYSQLDAO.MySQLProduitDAO;
 import projet.dao.modele.CategorieDAO;
 import projet.dao.modele.ClientDAO;
 import projet.dao.modele.CommandeDAO;
@@ -11,31 +16,31 @@ public class MySQLDAOFactory extends DAOFactory {
 	@Override
 	public CategorieDAO getCategorieDAO() {
 		// TODO Auto-generated method stub
-		return projet.dao.MYSQLDAO.MySQLCategorieDAO.getInstance();
+		return (CategorieDAO) MySQLCategorieDAO.getInstance();
 	}
 
 	@Override
 	public ClientDAO getClientDAO() {
 		// TODO Auto-generated method stub
-		return projet.dao.MYSQLDAO.MySQLClientDAO.getInstance();
+		return (ClientDAO) MySQLClientDAO.getInstance();
 	}
 
 	@Override
 	public CommandeDAO getCommandeDAO() {
 		// TODO Auto-generated method stub
-		return projet.dao.MYSQLDAO.MySQLCommandeDAO.getInstance();
+		return (CommandeDAO) MySQLCommandeDAO.getInstance();
 	}
 
 	@Override
 	public LigneCommandeDAO getLigneCommandeDAO() {
 		// TODO Auto-generated method stub
-		return projet.dao.MYSQLDAO.MySQLLigneCommandeDAO.getInstance();
+		return (LigneCommandeDAO) MySQLLigneCommandeDAO.getInstance();
 	}
 
 	@Override
 	public ProduitDAO getProduitDAO() {
 		// TODO Auto-generated method stub
-		return projet.dao.MYSQLDAO.MySQLProduitDAO.getInstance();
+		return (ProduitDAO) MySQLProduitDAO.getInstance();
 	}
 
 }

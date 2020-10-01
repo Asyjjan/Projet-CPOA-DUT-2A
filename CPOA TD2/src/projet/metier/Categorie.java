@@ -5,7 +5,7 @@ public class Categorie {
 	private int idcateg;
 	private String titre;
 	private String visuel;
-	
+
 	public Categorie(int idcateg, String titre, String visuel) {
 		super();
 		this.idcateg = idcateg;
@@ -36,8 +36,13 @@ public class Categorie {
 	public void setVisuel(String visuel) {
 		this.visuel = visuel;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Categorie [idcateg=" + idcateg + ", titre=" + titre + ", visuel=" + visuel + "]";
+	}
+
+
+
+
 }

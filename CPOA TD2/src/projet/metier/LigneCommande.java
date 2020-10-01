@@ -6,7 +6,7 @@ public class LigneCommande {
 	private int idproduit;
 	private int quantite;
 	private float tarif;
-	
+
 	public LigneCommande(int idcommande, int idproduit, int quantite, float tarif) {
 		super();
 		this.idcommande = idcommande;
@@ -46,6 +46,6 @@ public class LigneCommande {
 	public void setTarif(float tarif) {
 		this.tarif = tarif;
 	}
-	
+
 
 }

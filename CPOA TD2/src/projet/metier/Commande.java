@@ -11,7 +11,7 @@ public class Commande {
 	private LocalDate datecommande;
 	private int idclient;
 	private HashMap<Produit, LigneCommande> ligneCommande;
-	
+
 	public Commande(int idcommande, LocalDate datecommande, int idclient,
 			HashMap<Produit, LigneCommande> ligneCommande) {
 		super();
@@ -20,7 +20,7 @@ public class Commande {
 		this.idclient = idclient;
 		this.ligneCommande = ligneCommande;
 	}
-	
+
 
 	public int getIdcommande() {
 		return idcommande;
@@ -30,7 +30,7 @@ public class Commande {
 
 	public void setIdcommande(int idcommande) {
 		if(idcommande >0)
-		this.idcommande = idcommande;
+			this.idcommande = idcommande;
 	}
 
 
@@ -55,7 +55,7 @@ public class Commande {
 
 	public void setIdclient(int idclient) {
 		if(idclient >0)
-		this.idclient = idclient;
+			this.idclient = idclient;
 	}
 
 
@@ -88,15 +88,15 @@ public class Commande {
 	public void ajouteLigneCom(Produit prod, LigneCommande LC) {
 		ligneCommande.put(prod, LC);
 	}
-	
+
 	public void supprimeLigneCom(Produit prod) {
 		ligneCommande.remove(prod);
 	}
-	
+
 	public void modifieLigneCom(Produit prod, LigneCommande LC) {
 		ligneCommande.replace(prod, LC);
 	}
-		
+
 	@Override
 	public String toString() {
 		return "Commande [id=" + idcommande + ", date=" + formatage.format(getDatecommande()) + ", idClient=" + idclient + "]";
