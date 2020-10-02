@@ -1,15 +1,17 @@
 package projet.metier;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 
 public class Commande {
+	DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 	private int idcommande;
 	private LocalDate datecommande;
 	private int idclient;
 	private HashMap<Produit, LigneCommande> ligneCommande;
-	
+
 	public Commande(int idcommande, LocalDate datecommande, int idclient,
 			HashMap<Produit, LigneCommande> ligneCommande) {
 		super();
@@ -18,7 +20,7 @@ public class Commande {
 		this.idclient = idclient;
 		this.ligneCommande = ligneCommande;
 	}
-	
+
 
 	public int getIdcommande() {
 		return idcommande;
@@ -27,7 +29,8 @@ public class Commande {
 
 
 	public void setIdcommande(int idcommande) {
-		this.idcommande = idcommande;
+		if(idcommande >0)
+			this.idcommande = idcommande;
 	}
 
 
@@ -51,7 +54,8 @@ public class Commande {
 
 
 	public void setIdclient(int idclient) {
-		this.idclient = idclient;
+		if(idclient >0)
+			this.idclient = idclient;
 	}
 
 
@@ -66,18 +70,35 @@ public class Commande {
 		this.ligneCommande = ligneCommande;
 	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Commande other = (Commande) obj;
+		if (idcommande != other.idcommande)
+			return false;
+		return true;
+	}
 
 
 	public void ajouteLigneCom(Produit prod, LigneCommande LC) {
 		ligneCommande.put(prod, LC);
 	}
-	
+
 	public void supprimeLigneCom(Produit prod) {
 		ligneCommande.remove(prod);
 	}
-	
+
 	public void modifieLigneCom(Produit prod, LigneCommande LC) {
 		ligneCommande.replace(prod, LC);
 	}
-		
+
+	@Override
+	public String toString() {
+		return "Commande [id=" + idcommande + ", date=" + formatage.format(getDatecommande()) + ", idClient=" + idclient + "]";
+	}
 }
