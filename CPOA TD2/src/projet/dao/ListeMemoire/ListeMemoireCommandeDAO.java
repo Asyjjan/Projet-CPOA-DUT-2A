@@ -30,7 +30,7 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 
 		this.donnees = new ArrayList<Commande>();
 
-		HashMap lignecommande<new Produit(), 
+		HashMap<Produit, LigneCommande> ligneCommande = new HashMap<Produit, LigneCommande>();
 		this.donnees.add(new Commande(1, "2020-09-02 13:12:00", 1, ligneCommande));
 		this.donnees.add(new Commande(2, "2020-08-30 11:22:00", 1, ligneCommande));
 	}

@@ -1,5 +1,7 @@
 package projet.dao;
 
+import projet.dao.modele.*;
+
 public abstract class DAOFactory {
 	public static DAOFactory getDAOFactory(Persistance cible) {
 		

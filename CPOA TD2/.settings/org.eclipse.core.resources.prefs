@@ -1,2 +1,3 @@
 eclipse.preferences.version=1
 encoding//src/projet/dao/MYSQLDAO/MySQLCommandeDAO.java=UTF-8
+encoding//src/projet/dao/MYSQLDAO/MySQLLigneCommandeDAO.java=UTF-8

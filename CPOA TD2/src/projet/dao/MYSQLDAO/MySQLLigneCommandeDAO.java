@@ -7,7 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import projet.dao.modele.LigneCommandeDAO;
 import projet.menu.Connexion;
+import projet.metier.LigneCommande;
 
 public class MySQLLigneCommandeDAO {
 	
@@ -50,13 +52,11 @@ public static void create(int idcommande, int idproduit, int quantite,float tari
             Connection laConnexion = Connexion.creeConnexion();
             Statement modification = laConnexion.createStatement();
             
-                PreparedStatement requete = laConnexion.prepareStatement("Update Produit set nom=?, description=?, tarif=?, visuel=?, id_categorie=? where id_produit=?");
-				requete.setString(1,nom);
-				requete.setString(2,description);	
-				requete.setFloat(3, tarif);
-				requete.setString(4, visuel);
-				requete.setInt(5, idcateg);	
-				requete.setInt(6, idproduit);
+                PreparedStatement requete = laConnexion.prepareStatement("Update Ligne_commande set quantite=?, tarif_unitaire=? where id_commande=? and id_produit=?");
+				requete.setInt(1,quantite);
+				requete.setFloat(2,tarifunitaire);	
+				requete.setInt(3, idcommande);
+				requete.setInt(4, idproduit);
 				int resu = requete.executeUpdate();
 				System.out.println("Modification faite.");
 				
@@ -66,16 +66,16 @@ public static void create(int idcommande, int idproduit, int quantite,float tari
     }
 	
 	@SuppressWarnings("unchecked")
-	public static ArrayList<MySQLProduitDAO> Produit(){
+	public static ArrayList<LigneCommandeDAO> LigneCommande(){
 		@SuppressWarnings("rawtypes")
-		ArrayList<MySQLProduitDAO> p= new ArrayList();
+		ArrayList<LigneCommandeDAO> p= new ArrayList();
 		try {
 			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("select * from Produit");
+			PreparedStatement requete = laConnexion.prepareStatement("select * from Ligne_commande");
 				ResultSet res = requete.executeQuery();
 				
 				while (res.next()) {
-					p.add(new Produit (res.getInt(1),res.getString(2),res.getString(3),res.getFloat(4),res.getString(5),res.getInt(6)));
+					p.add(new LigneCommande (res.getInt(1),res.getFloat(2),res.getInt(3),res.getInt(4)));
 				}
 				
 		}catch (SQLException sqle) {

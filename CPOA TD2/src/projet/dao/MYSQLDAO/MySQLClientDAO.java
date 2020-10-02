@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import projet.menu.Connexion;
+import projet.metier.Categorie;
+import projet.metier.Client;
 
 public class MySQLClientDAO {
 		
@@ -77,7 +79,7 @@ public class MySQLClientDAO {
 				ResultSet res = requete.executeQuery();
 				
 				while (res.next()) {
-					cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3)));
+					cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3),"","","","","","",""));
 				}
 				
 		}catch (SQLException sqle) {
@@ -85,5 +87,18 @@ public class MySQLClientDAO {
 		   }
 		return cl;
 		
+	}
+	
+	public static Client getById(int id) throws SQLException {
+		Client client;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement("select * from Client where id_client=" + id);
+					ResultSet res = requete.executeQuery();
+					
+					client = new Client(res.getInt(1),res.getString(2),res.getString(3),"","","","","","","");
+					
+					if (laConnexion != null)
+						laConnexion.close();
+		return client;
 	}
 }

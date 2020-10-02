@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import projet.menu.Connexion;
+import projet.metier.*;
 
 public class MySQLProduitDAO {
 	
@@ -84,6 +85,19 @@ public class MySQLProduitDAO {
 		   }
 		return p;
 		
+	}
+	
+	public static Produit getById(int id) throws SQLException {
+		Produit produit;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement("select * from `Categorie` where id_categorie=" + id);
+					ResultSet res = requete.executeQuery();
+					
+					produit = new Produit(res.getInt(1), res.getString(2), res.getString(3),res.getFloat(4), res.getString(5), res.getInt(6));
+					
+					if (laConnexion != null)
+						laConnexion.close();
+		return produit;
 	}
 
 }

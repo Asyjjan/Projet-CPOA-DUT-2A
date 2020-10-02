@@ -13,6 +13,7 @@ import projet.dao.modele.CommandeDAO;
 import projet.menu.Connexion;
 import projet.metier.LigneCommande;
 import projet.metier.Produit;
+import projet.metier.Commande;
 
 public class MySQLCommandeDAO {
 		
@@ -85,7 +86,6 @@ public class MySQLCommandeDAO {
 			
 		}
 		
-		@Override
 		public Commande getById(int id) throws SQLException {
 			Commande commande = null;
 			
