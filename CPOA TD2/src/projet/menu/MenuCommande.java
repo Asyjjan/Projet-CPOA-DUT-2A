@@ -9,13 +9,21 @@ import java.util.Scanner;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
 import projet.dao.MYSQLDAO.MySQLCommandeDAO;
+import projet.metier.Categorie;
+import projet.metier.Client;
 import projet.metier.Commande;
 
 public class MenuCommande {
 
 	public static void menuCommande(int bdd) throws SQLException {
 
-		int persistance = bdd;
+		Persistance persistance = null;
+		if(bdd ==1) {
+			persistance = Persistance.MYSQL;
+		}
+		else if(bdd ==2) {
+			persistance = Persistance.LISTE_MEMOIRE;
+		}
 		System.out.println("Bonjour, voici le menu des commandes.");
 		System.out.println("Pour ajouter une commande, taper 1");
 		System.out.println("Pour modifier une commande, taper 2");
@@ -38,11 +46,8 @@ public class MenuCommande {
 			DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate datecommande = LocalDate.parse(date, formatage);
 			int idclient = scc3.nextInt();
-			if (persistance == 1) {
-				MySQLCommandeDAO.create(idcommande, datecommande, idclient);
-			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO().create(new Commande(idcommande, datecommande, idclient, null));
-			}
+			Commande commande = new Commande(idcommande, datecommande,idclient,null);
+			DAOFactory.getDAOFactory(persistance).getCommandeDAO().create(commande);
 		}
 		break;
 
@@ -56,12 +61,8 @@ public class MenuCommande {
 			DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 			LocalDate datecommande = LocalDate.parse(date, formatage);
 			int idclient = scc3.nextInt();
-			if (persistance == 1) {
-				MySQLCommandeDAO.update(idcommande, datecommande, idclient);
-			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO()
-				.update(new Commande(idcommande, datecommande, idclient, null));
-			}
+			Commande commande = new Commande(idcommande, datecommande,idclient,null);
+			DAOFactory.getDAOFactory(persistance).getCommandeDAO().update(commande);
 
 		}
 		break;
@@ -69,25 +70,18 @@ public class MenuCommande {
 		case 3: {
 			System.out.println("Afin de supprimer une commande, veuillez renseigner l'ID du client :");
 			int idcommande = scc1.nextInt();
-			if (persistance == 1) {
-				MySQLCommandeDAO.delete(idcommande);
-			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO().delete(new Commande(idcommande, null, idcommande, null));
-			}
+			Commande commande = new Commande(idcommande, null,idcommande,null);
+			DAOFactory.getDAOFactory(persistance).getCommandeDAO().delete(commande);
 		}
 		break;
 
 		case 4: {
 			System.out.println("Vous avez demander à voir l'ensemble des commandes :");
-			if (persistance == 1) {
-				ArrayList<Commande> liste = MySQLCommandeDAO.Commande();
-				for (Commande co : liste) {
-					System.out.println(co.toString());
-				}
-			} else if (persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getCommandeDAO().findAll();
+			ArrayList<Commande> liste =DAOFactory.getDAOFactory(persistance).getCommandeDAO().findAll();
+			for(Commande com : liste)
+			{
+				System.out.println(com.toString());
 			}
-
 		}
 		break;
 		}

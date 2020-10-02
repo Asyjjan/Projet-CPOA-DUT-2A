@@ -20,12 +20,18 @@ public class MenuLigneCommande {
 
 	public static void menuLigneCommande(int bdd) throws SQLException {
 		
-		int persistance = bdd;
+		Persistance persistance = null;
+		if(bdd ==1) {
+			persistance = Persistance.MYSQL;
+		}
+		else if(bdd ==2) {
+			persistance = Persistance.LISTE_MEMOIRE;
+		}
 		System.out.println("Bonjour, voici le menu des lignes de commandes.");
 		System.out.println("Pour ajouter une ligne de commande, taper 1");
 		System.out.println("Pour modifier une ligne de commande, taper 2");
 		System.out.println("Pour supprimer une ligne de commande, taper 3");
-		System.out.println("Pour afficher toutes les lignes de commandes, taper 4");
+		System.out.println("Pour afficher une ligne de commande, taper 4");
 
 		Scanner slc1 = new Scanner(System.in);
 		Scanner slc2 = new Scanner(System.in);
@@ -45,12 +51,8 @@ public class MenuLigneCommande {
 			int idproduit = slc2.nextInt();
 			int quantite = slc3.nextInt();
 			float tarifunitaire = slc4.nextFloat();
-			if(persistance == 1) {
-				MySQLLigneCommandeDAO.create(idcommande, idproduit, quantite, tarifunitaire);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getLigneCommandeDAO().create(new LigneCommande(idcommande, idproduit, quantite, tarifunitaire));
-			}
+			LigneCommande lignecommande = new LigneCommande(quantite, tarifunitaire);
+			DAOFactory.getDAOFactory(persistance).getLigneCommandeDAO().create(idcommande, idproduit, lignecommande);
 		}
 		break;
 
@@ -65,12 +67,8 @@ public class MenuLigneCommande {
 			int idproduit = slc2.nextInt();
 			int quantite = slc3.nextInt();
 			float tarifunitaire = slc4.nextFloat();
-			if(persistance == 1) {
-				MySQLLigneCommandeDAO.update(idcommande, idproduit, quantite, tarifunitaire);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getLigneCommandeDAO().update(new LigneCommande(idcommande, idproduit, quantite, tarifunitaire));
-			}
+			LigneCommande lignecommande = new LigneCommande(quantite, tarifunitaire);
+			DAOFactory.getDAOFactory(persistance).getLigneCommandeDAO().update(idcommande, idproduit, lignecommande);
 		}
 		break;
 
@@ -81,29 +79,20 @@ public class MenuLigneCommande {
 			System.out.println("Id produit");
 			int idcommande = slc1.nextInt();
 			int idproduit = slc2.nextInt();
-			if(persistance == 1) {
-				MySQLLigneCommandeDAO.delete(idcommande, idproduit);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getLigneCommandeDAO().delete(new LigneCommande(idcommande, idproduit, idproduit, idcommande));
-			}
+			DAOFactory.getDAOFactory(persistance).getLigneCommandeDAO().delete(idcommande,idproduit);
 		}
 		break;
 
 
 		case 4:
 		{
-			System.out.println("Vous avez demander à voir l'ensemble des lignes de commandes :");
-			if(persistance == 1) {
-				ArrayList<LigneCommande> liste2= MySQLLigneCommandeDAO.LigneCommande();
-				for(LigneCommande lc : liste2)
-				{
-					System.out.println(lc.toString());
-				}
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getLigneCommandeDAO().findAll();
-			}
+			System.out.println("Vous avez demander une ligne de commande :");
+			System.out.println("ID commande");
+			System.out.println("Id produit");
+			int idcommande = slc1.nextInt();
+			int idproduit = slc2.nextInt();
+			LigneCommande liste = DAOFactory.getDAOFactory(persistance).getLigneCommandeDAO().getById(idcommande, idproduit);
+			System.out.println(liste.toString());
 		}
 		break;
 		}

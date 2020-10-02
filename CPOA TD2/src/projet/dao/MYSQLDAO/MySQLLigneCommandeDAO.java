@@ -10,9 +10,8 @@ import java.util.Collection;
 import projet.dao.modele.LigneCommandeDAO;
 import projet.menu.Connexion;
 import projet.metier.*;
-import projet.metier.LigneCommande;
 
-public class MySQLLigneCommandeDAO {
+public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 
 	private static MySQLLigneCommandeDAO instance;
 
@@ -26,84 +25,54 @@ public class MySQLLigneCommandeDAO {
 		return instance;
 	}
 
-	public static void create(int idcommande, int idproduit, int quantite,float tarifunitaire) {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("select * from Ligne_commande");
-				ResultSet res = requete.executeQuery();
-				
-				while (res.next()) {
-					p.add(new LigneCommande (res.getInt(1),res.getFloat(2),res.getInt(3),res.getInt(4)));
-				}
-				
-			Statement insertion = laConnexion.createStatement();
-
-			PreparedStatement requete = laConnexion.prepareStatement("insert into Ligne_commande (id_commande,id_produit,quantite,tarif_unitaire) values (?,?,?,?)");
-			requete.setInt(1, idcommande);
-			requete.setInt(2, idproduit);
-			requete.setInt(3, quantite);
-			requete.setFloat(4, tarifunitaire);
-			int resu = requete.executeUpdate();
-			System.out.println("Ins�ration faite.");
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me insert " + sqle.getMessage());
-		}
-
+	@Override
+	public boolean create(int idcommande, int idproduit, LigneCommande objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"INSERT INTO 	Ligne_commande (id_commande, id_produit, quantite, tarif_unitaire) VALUES (?,?,?,?)");
+		requete.setInt(1, idcommande);
+		requete.setInt(2, idproduit);
+		requete.setInt(3, objet.getQuantite());
+		requete.setFloat(4, objet.getTarif());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
 	}
 
-	public static void delete(int idcommande, int idproduit) throws SQLException {
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion
-					.prepareStatement("delete from Ligne_commande where id_commande=? and id_produit=?");
-			requete.setInt(1, idcommande);
-			requete.setInt(2, idproduit);
-			int res = requete.executeUpdate();
-			System.out.println("Suppresion faite.");
-		} catch (SQLException sqle) {
-			System.out.println("Probl�me delete " + sqle.getMessage());
-		}
+	@Override
+	public boolean update(int idcommande, int idproduit, LigneCommande objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"UPDATE Ligne_commande SET quantite = ?, tarif_unitaire = ?, WHERE id_commande =" + idcommande + "and id_produit ="+ idproduit + "VALUES(?,?)");
+		requete.setInt(1, objet.getQuantite());
+		requete.setFloat(2, objet.getTarif());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
 	}
 
-	public static void update(int idcommande, int idproduit, int quantite, float tarifunitaire) {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			Statement modification = laConnexion.createStatement();
-
-			PreparedStatement requete = laConnexion.prepareStatement(
-					"Update Ligne_commande set quantite=?, tarif_unitaire=? where id_commande=? and id_produit=?");
-			requete.setInt(1, quantite);
-			requete.setFloat(2, tarifunitaire);
-			requete.setInt(3, idcommande);
-			requete.setInt(4, idproduit);
-			int res = requete.executeUpdate();
-			System.out.println("Modification faite.");
-
-		} catch (SQLException sqle) {
-			System.out.println("Probl�me modification " + sqle.getMessage());
-		}
+	@Override
+	public boolean delete(int idcommande, int idproduit) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement("DELETE FROM Ligne_commande WHERE id_commande =" +idcommande +" and id_produit =" +idproduit);
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static ArrayList<LigneCommande> LigneCommande() {
-		@SuppressWarnings("rawtypes")
-		ArrayList<LigneCommande> p = new ArrayList();
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("select * from Ligne_commande");
-			ResultSet res = requete.executeQuery();
-
-			while (res.next()) {
-				p.add(new LigneCommande(res.getInt(1), res.getInt(2),res.getInt(3), res.getFloat(4)));
-			}
-
-		} catch (SQLException sqle) {
-			System.out.println("Probl�me ArrayList " + sqle.getMessage());
+	@Override
+	public LigneCommande getById(int idcommande, int idproduit) throws SQLException {
+		int quantite = 0;
+		float tarif = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		Statement requete = laConnexion.createStatement();
+		ResultSet res = requete.executeQuery("SELECT * FROM Ligne_commande WHERE id_commande = " + idcommande + " and id_produit =" +idproduit);
+		if (res.next()) {
+			quantite = res.getInt(3);
+			tarif = res.getFloat(4);
 		}
-		return p;
+		LigneCommande lignecommande = new LigneCommande(quantite, tarif);
+		return lignecommande;
+	}
 
 	}
-}

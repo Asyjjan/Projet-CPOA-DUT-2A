@@ -2,33 +2,13 @@ package projet.metier;
 
 public class LigneCommande {
 
-	private int idcommande;
-	private int idproduit;
 	private int quantite;
 	private float tarif;
 
-	public LigneCommande(int idcommande, int idproduit, int quantite, float tarif) {
+	public LigneCommande(int quantite, float tarif) {
 		super();
-		this.idcommande = idcommande;
-		this.idproduit = idproduit;
 		this.quantite = quantite;
 		this.tarif = tarif;
-	}
-
-	public int getIdcommande() {
-		return idcommande;
-	}
-
-	public void setIdcommande(int idcommande) {
-		this.idcommande = idcommande;
-	}
-
-	public int getIdproduit() {
-		return idproduit;
-	}
-
-	public void setIdproduit(int idproduit) {
-		this.idproduit = idproduit;
 	}
 
 	public int getQuantite() {
@@ -49,7 +29,7 @@ public class LigneCommande {
 
 	@Override
 	public String toString() {
-		return "LigneCommande [idcommande=" + idcommande + ", idproduit=" + idproduit + ", quantite=" + quantite
+		return "LigneCommande [idcommande=" + ", quantite=" + quantite
 				+ ", tarif=" + tarif + "]";
 	}
 

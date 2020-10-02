@@ -15,8 +15,14 @@ import projet.metier.Produit;
 public class MenuProduit {
 
 	public static void menuProduit(int bdd) throws SQLException {
-
-		int persistance = bdd;
+		
+		Persistance persistance = null;
+		if(bdd ==1) {
+			persistance = Persistance.MYSQL;
+		}
+		else if(bdd ==2) {
+			persistance = Persistance.LISTE_MEMOIRE;
+		}
 		System.out.println("Bonjour, voici le menu des produits.");
 		System.out.println("Pour ajouter un produit, taper 1");
 		System.out.println("Pour modifier un produit, taper 2");
@@ -47,12 +53,8 @@ public class MenuProduit {
 			float tarif = scp4.nextFloat();
 			String visuel = scp5.nextLine();
 			int idcateg = scp6.nextInt();
-			if(persistance == 1) {
-				MySQLProduitDAO.create(idproduit, nom, description, tarif, visuel, idcateg);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getProduitDAO().create(new Produit(idproduit, nom, description, tarif, visuel, idcateg));
-			}
+			Produit produit = new Produit(idproduit, nom, description, tarif, visuel, idcateg);
+			DAOFactory.getDAOFactory(persistance).getProduitDAO().create(produit);
 		}
 		break;
 
@@ -71,12 +73,8 @@ public class MenuProduit {
 			float tarif = scp4.nextFloat();
 			String visuel = scp5.nextLine();
 			int idcateg = scp6.nextInt();
-			if(persistance == 1) {
-				MySQLProduitDAO.update(idproduit, nom, description, tarif, visuel, idcateg);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getProduitDAO().update(new Produit(idproduit, nom, description, tarif, visuel, idcateg));
-			}
+			Produit produit = new Produit(idproduit, nom, description, tarif, visuel, idcateg);
+			DAOFactory.getDAOFactory(persistance).getProduitDAO().update(produit);
 		}
 		break;
 
@@ -84,12 +82,8 @@ public class MenuProduit {
 		{
 			System.out.println("Afin de supprimer un produit, veuillez renseigner l'ID du produit :");
 			int idproduit = scp1.nextInt();
-			if(persistance == 1) {
-				MySQLProduitDAO.delete(idproduit);
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getProduitDAO().delete(new Produit(idproduit, null, null, idproduit, null, idproduit));
-			}
+			Produit produit = new Produit(idproduit, null, null, idproduit, null, idproduit);
+			DAOFactory.getDAOFactory(persistance).getProduitDAO().delete(produit);
 		}
 		break;
 
@@ -97,15 +91,10 @@ public class MenuProduit {
 		case 4:
 		{
 			System.out.println("Vous avez demander à voir l'ensemble des produits :");
-			if(persistance == 1) {
-				ArrayList<Produit> liste3= MySQLProduitDAO.Produit();
-				for(Produit p : liste3)
-				{
-					System.out.println(p.toString());
-				}
-			}
-			else if(persistance == 2) {
-				DAOFactory.getDAOFactory(Persistance.LISTE_MEMOIRE).getProduitDAO().findAll();
+			ArrayList<Produit> liste = DAOFactory.getDAOFactory(persistance).getProduitDAO().findAll();
+			for(Produit p : liste)
+			{
+				System.out.println(p.toString());
 			}
 		}
 		break;

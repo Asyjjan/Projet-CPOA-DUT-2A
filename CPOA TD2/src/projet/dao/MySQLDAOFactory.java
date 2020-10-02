@@ -17,7 +17,7 @@ public class MySQLDAOFactory extends DAOFactory {
 	@Override
 	public CategorieDAO getCategorieDAO() {
 		// TODO Auto-generated method stub
-		return (CategorieDAO) MySQLCategorieDAO.getInstance();
+		return MySQLCategorieDAO.getInstance();
 	}
 
 	@Override
@@ -29,19 +29,19 @@ public class MySQLDAOFactory extends DAOFactory {
 	@Override
 	public CommandeDAO getCommandeDAO() {
 		// TODO Auto-generated method stub
-		return (CommandeDAO) MySQLCommandeDAO.getInstance();
+		return MySQLCommandeDAO.getInstance();
 	}
 
 	@Override
 	public LigneCommandeDAO getLigneCommandeDAO() {
 		// TODO Auto-generated method stub
-		return (LigneCommandeDAO) MySQLLigneCommandeDAO.getInstance();
+		return MySQLLigneCommandeDAO.getInstance();
 	}
 
 	@Override
 	public ProduitDAO getProduitDAO() {
 		// TODO Auto-generated method stub
-		return (ProduitDAO) MySQLProduitDAO.getInstance();
+		return MySQLProduitDAO.getInstance();
 	}
 
 }

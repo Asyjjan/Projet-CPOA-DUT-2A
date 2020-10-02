@@ -33,12 +33,12 @@ public class ListeMemoireCommandeDAO implements CommandeDAO {
 
 		this.donnees = new ArrayList<Commande>();
 		HashMap <Produit, LigneCommande> ligneCommande1 = new HashMap<Produit, LigneCommande>(); 
-		ligneCommande1.put(new Produit(2,"Sonic te kiffe", "Inspire par la saga Saga (c''est plus fort que toi !), un pull 100% gamer qui te permettra de faire baver d''envie tes petits camarades de jeu.", (float)41.5, "pull1.png", 1), new LigneCommande(1,2,2,(float)41.5));
-		ligneCommande1.put(new Produit(6, "La chaleur des rennes", "Classique mais efficace, un bonnet dont l''elegance n''est pas a souligner, il vous grattera comme il faut !", (float)15, "bonnet0.png", 2), new LigneCommande(1,6,1,15));
+		ligneCommande1.put(new Produit(2,"Sonic te kiffe", "Inspire par la saga Saga (c''est plus fort que toi !), un pull 100% gamer qui te permettra de faire baver d''envie tes petits camarades de jeu.", (float)41.5, "pull1.png", 1), new LigneCommande(2,(float)41.5));
+		ligneCommande1.put(new Produit(6, "La chaleur des rennes", "Classique mais efficace, un bonnet dont l''elegance n''est pas a souligner, il vous grattera comme il faut !", (float)15, "bonnet0.png", 2), new LigneCommande(1,15));
 		this.donnees.add(new Commande(1, LocalDate.of(2020, Month.SEPTEMBER, 02),1,ligneCommande1)); 
 
 		HashMap <Produit, LigneCommande> ligneCommande2 = new HashMap<Produit, LigneCommande>(); 
-		ligneCommande2.put(new Produit(12, "Dall", "Joyeux Noel avec nos petits lutins dansants !", (float)35, "bonnet1.png", 2), new LigneCommande(2,12,4,35));
+		ligneCommande2.put(new Produit(12, "Dall", "Joyeux Noel avec nos petits lutins dansants !", (float)35, "bonnet1.png", 2), new LigneCommande(4,35));
 		this.donnees.add(new Commande(2, LocalDate.of(2020, Month.AUGUST, 30),1,ligneCommande2)); 
 	}
 

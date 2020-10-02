@@ -1,10 +1,11 @@
 package projet.dao.ListeMemoire;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import projet.dao.modele.LigneCommandeDAO;
-import projet.metier.LigneCommande;
+import projet.metier.*;
 
 public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 
@@ -25,14 +26,18 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 
 		this.donnees = new ArrayList<LigneCommande>();
 
-		this.donnees.add(new LigneCommande(1, 2, 2, 41));
-		this.donnees.add(new LigneCommande(1, 6, 1, 15));
-		this.donnees.add(new LigneCommande(2, 12, 4, 35));
+		this.donnees.add(new LigneCommande(2, 41));
+		this.donnees.add(new LigneCommande(1, 15));
+		this.donnees.add(new LigneCommande(4, 35));
 	}
 
 	@Override
-	public boolean create(LigneCommande objet) {
+	public ArrayList<LigneCommande> findAll() {
+		return (ArrayList<LigneCommande>) this.donnees;
+	}
 
+	@Override
+	public boolean create(int idc, int idp, LigneCommande objet) throws SQLException {
 		objet.setIdcommande(3);
 		// Ne fonctionne que si l'objet métier est bien fait...
 		while (this.donnees.contains(objet)) {
@@ -45,7 +50,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	}
 
 	@Override
-	public boolean update(LigneCommande objet) {
+	public boolean update(int idc, int idp, LigneCommande objet) throws SQLException {
 
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(objet);
@@ -60,7 +65,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	}
 
 	@Override
-	public boolean delete(LigneCommande objet) {
+	public boolean delete(int idc, int idp) throws SQLException {
 
 		LigneCommande supprime;
 
@@ -76,7 +81,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	}
 
 	@Override
-	public LigneCommande getById(int id) {
+	public LigneCommande getById(int idc, int idp) throws SQLException {
 		// Ne fonctionne que si l'objet métier est bien fait...
 		int idx = this.donnees.indexOf(new LigneCommande(1, 2, 2, 41));
 		if (idx == -1) {
@@ -84,10 +89,5 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 		} else {
 			return this.donnees.get(idx);
 		}
-	}
-
-	@Override
-	public ArrayList<LigneCommande> findAll() {
-		return (ArrayList<LigneCommande>) this.donnees;
 	}
 }

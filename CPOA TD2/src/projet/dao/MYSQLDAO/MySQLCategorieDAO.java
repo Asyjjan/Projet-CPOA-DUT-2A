@@ -12,7 +12,7 @@ import projet.dao.modele.CategorieDAO;
 import projet.menu.Connexion;
 import projet.metier.*;
 
-public class MySQLCategorieDAO{
+public class MySQLCategorieDAO implements CategorieDAO{
 
 	private static MySQLCategorieDAO instance;
 
@@ -25,82 +25,70 @@ public class MySQLCategorieDAO{
 		}
 		return instance;
 	}
-	public static void create(int idcateg, String titrecateg, String visuel) {
 
-		try {
-
-			Connection laConnexion = Connexion.creeConnexion();
-			Statement insertion = laConnexion.createStatement();
-
-			PreparedStatement requete = laConnexion.prepareStatement("insert into Categorie (id_categorie, titre, visuel) values (?,?,?)");
-			requete.setInt(1, idcateg);
-			requete.setString(2, titrecateg);
-			requete.setString(3, visuel);
-			int resu = requete.executeUpdate();
-			System.out.println("Ins�ration faite.");
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me insert " + sqle.getMessage());
-		}
-
-	}
-	public static void delete(int idcateg) throws SQLException {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("delete from Categorie where id_categorie=?");
-			requete.setInt(1, idcateg);
-			int res = requete.executeUpdate();
-			System.out.println("Suppresion faite.");
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me delete " + sqle.getMessage());
-		}
-	}
-	
-	public static Categorie getById(int id) throws SQLException {
-		Categorie categorie;
+	@Override
+	public boolean create(Categorie objet) throws SQLException {
+		int nbLignes = 0;
 		Connection laConnexion = Connexion.creeConnexion();
-		PreparedStatement requete = laConnexion.prepareStatement("select * from `Categorie` where id_categorie=" + id);
-					ResultSet res = requete.executeQuery();
-					
-					categorie = new Categorie(res.getInt(1), res.getString(2), res.getString(3));
-					
-					if (laConnexion != null)
-						laConnexion.close();
-					
-					return categorie;
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"INSERT INTO 	Categorie (id_categorie, titre, visuel) VALUES (?,?,?)");
+		requete.setInt(1, objet.getIdcateg());
+		requete.setString(2, objet.getTitre());
+		requete.setString(3, objet.getVisuel());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
 	}
 
-	public static void update(int idcateg, String titrecateg, String visuel) {
+	@Override
+	public boolean update(Categorie objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"UPDATE Categorie SET titre = ?, visuel = ?, WHERE id_categorie = ?");
+		requete.setString(1, objet.getTitre());
+		requete.setString(2, objet.getVisuel());
+		requete.setInt(3, objet.getIdcateg());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
+	}
 
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			Statement modification = laConnexion.createStatement();
+	@Override
+	public boolean delete(Categorie objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement("DELETE FROM Categorie WHERE id_categorie = ?");
+		requete.setInt(1, objet.getIdcateg());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
+	}
 
-			PreparedStatement requete = laConnexion.prepareStatement("Update Categorie set titre=?,visuel=? where id_categorie=?");
-			requete.setString(1,titrecateg);
-			requete.setString(2,visuel);	
-			requete.setInt(3, idcateg);
-			int resu = requete.executeUpdate();
-			System.out.println("Modification faite.");
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me modification " + sqle.getMessage());
+	@Override
+	public Categorie getById(int id) throws SQLException {
+		String titre = "";
+		String visuel = "";
+		Connection laConnexion = Connexion.creeConnexion();
+		Statement requete = laConnexion.createStatement();
+		ResultSet res = requete.executeQuery("SELECT * FROM Categorie WHERE id_categorie = ?");
+		if (res.next()) {
+			titre = res.getString(2);
+			visuel = res.getString(3);
 		}
+		Categorie categorie = new Categorie(id, titre, visuel);
+		return categorie;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static ArrayList<Categorie> Categorie() throws SQLException{
+	@Override
+	public ArrayList<Categorie> findAll() throws SQLException {
 		ArrayList<Categorie> liste = new ArrayList<Categorie>();
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
 		ResultSet res = requete.executeQuery("SELECT * FROM Categorie");
 		while (res.next()) {
-			int id = res.getInt(1);
+			int idCateg = res.getInt(1);
 			String titre = res.getString(2);
 			String visuel = res.getString(3);
-			Categorie categ = new Categorie(id, titre, visuel);
-			liste.add(categ);
+			Categorie categorie = new Categorie(idCateg, titre, visuel);
+			liste.add(categorie);
 		}
 		return liste;
 	}

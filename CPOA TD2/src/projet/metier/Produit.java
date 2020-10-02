@@ -5,11 +5,11 @@ public class Produit {
 	private int idprod;
 	private String nom;
 	private String desc;
-	private double tarif;
+	private float tarif;
 	private String visuel;
 	private int idcateg;
 
-	public Produit(int idprod, String nom, String desc, double tarif, String visuel, int idcateg) {
+	public Produit(int idprod, String nom, String desc, float tarif, String visuel, int idcateg) {
 		super();
 		this.idprod = idprod;
 		this.nom = nom;
@@ -43,11 +43,11 @@ public class Produit {
 		this.desc = desc;
 	}
 
-	public double getTarif() {
+	public float getTarif() {
 		return tarif;
 	}
 
-	public void setTarif(double tarif) {
+	public void setTarif(float tarif) {
 		this.tarif = tarif;
 	}
 

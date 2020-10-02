@@ -7,13 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import projet.dao.modele.CategorieDAO;
+import projet.dao.modele.ClientDAO;
 import projet.menu.Connexion;
-import projet.metier.Categorie;
 import projet.metier.Client;
-import projet.metier.*;
 
-public class MySQLClientDAO implements CategorieDAO {
+public class MySQLClientDAO implements ClientDAO {
 
 	private static MySQLClientDAO instance;
 
@@ -27,128 +25,105 @@ public class MySQLClientDAO implements CategorieDAO {
 		return instance;
 	}
 
-	public static void create(int idclient, String nom, String prenom) {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			Statement insert = laConnexion.createStatement();
-
-			PreparedStatement requete = laConnexion.prepareStatement("insert into Client (id_client, nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) values (?,?,?,?,?,?,?,?,?,?)");
-			requete.setInt(1, idclient);
-			requete.setString(2, nom);
-			requete.setString(3, prenom);
-			requete.setString(4, "*");
-			requete.setString(5, "*");
-			requete.setString(6, "*");
-			requete.setString(7, "*");
-			requete.setString(8, "*");
-			requete.setString(9, "*");
-			requete.setString(10, "*");
-			int resu = requete.executeUpdate();
-			System.out.println("Ins�ration faite.");
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me insert " + sqle.getMessage());
-		}
-	}
-
-	public static void delete(int idclient) throws SQLException {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("delete from Client where id_client=?");
-			requete.setInt(1, idclient);
-			int res = requete.executeUpdate();
-			System.out.println("Suppresion faite.");
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me delete " + sqle.getMessage());
-		}
-	}
-
-	public static void update(int idclient, String nom, String prenom) {
-
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			Statement modif = laConnexion.createStatement();
-
-			PreparedStatement requete = laConnexion.prepareStatement("Update Client set nom=?,prenom=? where id_client=?");
-			requete.setString(1,nom);
-			requete.setString(2,prenom);	
-			requete.setInt(3, idclient);
-			int resu = requete.executeUpdate();
-			System.out.println("Modification faite.");
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me modification " + sqle.getMessage());
-		}
-	}
-
-	@SuppressWarnings("unchecked")
-	public static ArrayList<Client> Client(){
-		@SuppressWarnings("rawtypes")
-		ArrayList<Client> cl= new ArrayList();
-		try {
-			Connection laConnexion = Connexion.creeConnexion();
-			PreparedStatement requete = laConnexion.prepareStatement("select * from Client");
-				ResultSet res = requete.executeQuery();
-				
-				while (res.next()) {
-					cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3),"","","","","","",""));
-				}
-
-			ResultSet res = requete.executeQuery();
-
-			while (res.next()) {
-				cl.add(new Client (res.getInt(1),res.getString(2),res.getString(3), null, null, null, null, null, null, null));
-			}
-
-		}catch (SQLException sqle) {
-			System.out.println("Probl�me ArrayList " + sqle.getMessage());
-		}
-		return cl;
-
-	}
-	
-	public static Client getById(int id) throws SQLException {
-		Client client;
+	@Override
+	public boolean create(Client objet) throws SQLException {
+		int nbLignes = 0;
 		Connection laConnexion = Connexion.creeConnexion();
-		PreparedStatement requete = laConnexion.prepareStatement("select * from Client where id_client=" + id);
-					ResultSet res = requete.executeQuery();
-					
-					client = new Client(res.getInt(1),res.getString(2),res.getString(3),"","","","","","","");
-					
-					if (laConnexion != null)
-						laConnexion.close();
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"INSERT INTO 	Client (nom, prenom, identifiant, mot_de_passe, adr_numero, adr_voie, adr_code_postal, adr_ville, adr_pays) VALUES (?,?,?,?,?,?,?,?,?)");
+		requete.setString(1, objet.getNom());
+		requete.setString(2, objet.getPrenom());
+		requete.setString(3, objet.getIdentifiant());
+		requete.setString(4, objet.getMdp());
+		requete.setString(5, "*");
+		requete.setString(6, "*");
+		requete.setString(7, "*");
+		requete.setString(8, "*");
+		requete.setString(9, "*");
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
+	}
+
+	@Override
+	public boolean update(Client objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement(
+				"UPDATE Client SET nom = ?, prenom = ?, identifiant = ?, mot_de_passe = ?, adr_numero = ?, adr_voie = ?, adr_code_postal = ?, adr_ville = ?, adr_pays = ? WHERE Client.id_client = ?");
+		requete.setString(1, objet.getNom());
+		requete.setString(2, objet.getPrenom());
+		requete.setString(3, objet.getIdentifiant());
+		requete.setString(4, objet.getMdp());
+		requete.setString(5,"*");
+		requete.setString(6, "*");
+		requete.setString(7, "*");
+		requete.setString(8, "*");
+		requete.setString(9, "*");
+		requete.setInt(10, objet.getIdclient());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
+	}
+
+	@Override
+	public boolean delete(Client objet) throws SQLException {
+		int nbLignes = 0;
+		Connection laConnexion = Connexion.creeConnexion();
+		PreparedStatement requete = laConnexion.prepareStatement("DELETE FROM Client WHERE Client.id_client = ?");
+		requete.setInt(1, objet.getIdclient());
+		nbLignes = requete.executeUpdate();
+		return nbLignes == 1;
+	}
+
+	@Override
+	public Client getById(int id) throws SQLException {
+		String nom = "";
+		String prenom = "";
+		String identifiant = "";
+		String mdp = "";
+		String adrNum = "";
+		String adrVoie = "";
+		String adrCP = "";
+		String adrVille = "";
+		String adrPays = "";
+		Connection laConnexion = Connexion.creeConnexion();
+		Statement requete = laConnexion.createStatement();
+		ResultSet res = requete.executeQuery("SELECT * FROM Client WHERE Client.id_client = ?");
+		if (res.next()) {
+			nom = res.getString(2);
+			prenom = res.getString(3);
+			identifiant = res.getString(4);
+			mdp = res.getString(5);
+			adrNum = res.getString(6);
+			adrVoie = res.getString(7);
+			adrCP = res.getString(8);
+			adrVille = res.getString(9);
+			adrPays = res.getString(10);
+		}
+		Client client = new Client(id, nom, prenom, identifiant, mdp, adrNum, adrVoie, adrCP, adrVille, adrPays);
 		return client;
 	}
 
 	@Override
-	public boolean create(Categorie objet) {
-		// TODO Auto-generated method stub
-		return false;
+	public ArrayList<Client> findAll() throws SQLException {
+		ArrayList<Client> liste = new ArrayList<Client>();
+		Connection laConnexion = Connexion.creeConnexion();
+		Statement requete = laConnexion.createStatement();
+		ResultSet res = requete.executeQuery("SELECT * FROM Client");
+		while (res.next()) {
+			int idC = res.getInt(1);
+			String nom = res.getString(2);
+			String prenom = res.getString(3);
+			String identifiant = res.getString(4);
+			String mdp = res.getString(5);
+			String adrNum = res.getString(6);
+			String adrVoie = res.getString(7);
+			String adrCP = res.getString(8);
+			String adrVille = res.getString(9);
+			String adrPays = res.getString(10);
+			Client client = new Client(idC, nom, prenom, identifiant, mdp, adrNum, adrVoie, adrCP, adrVille, adrPays);
+			liste.add(client);
+		}
+		return liste;
 	}
 
-	@Override
-	public boolean update(Categorie objet) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean delete(Categorie objet) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public Categorie getById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ArrayList<Categorie> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
