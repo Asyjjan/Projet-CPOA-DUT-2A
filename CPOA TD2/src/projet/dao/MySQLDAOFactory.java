@@ -23,7 +23,7 @@ public class MySQLDAOFactory extends DAOFactory {
 	@Override
 	public ClientDAO getClientDAO() {
 		// TODO Auto-generated method stub
-		return (ClientDAO) MySQLClientDAO.getInstance();
+		return MySQLClientDAO.getInstance();
 	}
 
 	@Override

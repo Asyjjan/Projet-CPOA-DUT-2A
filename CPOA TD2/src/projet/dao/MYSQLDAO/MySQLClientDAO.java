@@ -6,12 +6,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import projet.dao.modele.CategorieDAO;
 import projet.menu.Connexion;
 import projet.metier.Categorie;
 import projet.metier.Client;
 import projet.metier.*;
 
-public class MySQLClientDAO {
+public class MySQLClientDAO implements CategorieDAO {
 
 	private static MySQLClientDAO instance;
 
@@ -118,5 +120,35 @@ public class MySQLClientDAO {
 					if (laConnexion != null)
 						laConnexion.close();
 		return client;
+	}
+
+	@Override
+	public boolean create(Categorie objet) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Categorie objet) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean delete(Categorie objet) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public Categorie getById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Categorie> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
