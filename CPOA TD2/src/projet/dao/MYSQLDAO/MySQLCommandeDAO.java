@@ -38,7 +38,7 @@ public class MySQLCommandeDAO implements CommandeDAO{
 
 			PreparedStatement requete = laConnexion.prepareStatement("insert into Commande (id_commande, date_commande, id_client) values (?,?,?)");
 			requete.setInt(1, objet.getIdcommande());
-			requete.setDate(2, java.sql.Date.valueOf(objet.getDatecommande()));
+			requete.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
 			requete.setInt(3, objet.getIdclient());
 			resu = requete.executeUpdate();
 			System.out.println("Insï¿½ration faite.");
