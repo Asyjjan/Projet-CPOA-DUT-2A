@@ -26,7 +26,11 @@ public class Categorie {
 	}
 
 	public void setTitre(String titre) {
-		this.titre = titre;
+		if (this.titre == null || this.titre.trim().isEmpty()) {
+
+		} else {
+			this.titre = titre;
+		}
 	}
 
 	public String getVisuel() {
@@ -34,15 +38,16 @@ public class Categorie {
 	}
 
 	public void setVisuel(String visuel) {
-		this.visuel = visuel;
+		if (this.visuel == null || this.visuel.trim().isEmpty()) {
+
+		} else {
+			this.visuel = visuel;
+		}
 	}
 
 	@Override
 	public String toString() {
 		return "Categorie [idcateg=" + idcateg + ", titre=" + titre + ", visuel=" + visuel + "]";
 	}
-
-
-
 
 }

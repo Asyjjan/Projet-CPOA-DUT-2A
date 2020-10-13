@@ -41,7 +41,11 @@ public class Client {
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		if (this.nom == null || this.nom.trim().isEmpty()) {
+
+		} else {
+			this.nom = nom;
+		}
 	}
 
 	public String getPrenom() {
@@ -49,7 +53,11 @@ public class Client {
 	}
 
 	public void setPrenom(String prenom) {
-		this.prenom = prenom;
+		if (this.prenom == null || this.prenom.trim().isEmpty()) {
+
+		} else {
+			this.prenom = prenom;
+		}
 	}
 
 	public String getIdentifiant() {
@@ -57,7 +65,11 @@ public class Client {
 	}
 
 	public void setIdentifiant(String identifiant) {
-		this.identifiant = identifiant;
+		if (this.identifiant == null || this.identifiant.trim().isEmpty()) {
+
+		} else {
+			this.identifiant = identifiant;
+		}
 	}
 
 	public String getMdp() {
@@ -65,7 +77,11 @@ public class Client {
 	}
 
 	public void setMdp(String mdp) {
-		this.mdp = mdp;
+		if (this.mdp == null || this.mdp.trim().isEmpty()) {
+
+		} else {
+			this.mdp = mdp;
+		}
 	}
 
 	public String getAdrnumero() {
@@ -73,7 +89,11 @@ public class Client {
 	}
 
 	public void setAdrnumero(String adrnumero) {
-		this.adrnumero = adrnumero;
+		if (this.adrnumero == null || this.adrnumero.trim().isEmpty()) {
+
+		} else {
+			this.adrnumero = adrnumero;
+		}
 	}
 
 	public String getAdrvoie() {
@@ -81,7 +101,11 @@ public class Client {
 	}
 
 	public void setAdrvoie(String adrvoie) {
-		this.adrvoie = adrvoie;
+		if (this.adrvoie == null || this.adrvoie.trim().isEmpty()) {
+
+		} else {
+			this.adrvoie = adrvoie;
+		}
 	}
 
 	public String getAdrcodepostal() {
@@ -89,7 +113,11 @@ public class Client {
 	}
 
 	public void setAdrcodepostal(String adrcodepostal) {
-		this.adrcodepostal = adrcodepostal;
+		if (this.adrcodepostal == null || this.adrcodepostal.trim().isEmpty()) {
+
+		} else {
+			this.adrcodepostal = adrcodepostal;
+		}
 	}
 
 	public String getAdrville() {
@@ -97,7 +125,11 @@ public class Client {
 	}
 
 	public void setAdrville(String adrville) {
-		this.adrville = adrville;
+		if (this.adrville == null || this.adrville.trim().isEmpty()) {
+
+		} else {
+			this.adrville = adrville;
+		}
 	}
 
 	public String getAdrpays() {
@@ -105,7 +137,11 @@ public class Client {
 	}
 
 	public void setAdrpays(String adrpays) {
-		this.adrpays = adrpays;
+		if (this.adrpays == null || this.adrpays.trim().isEmpty()) {
+
+		} else {
+			this.adrpays = adrpays;
+		}
 	}
 
 	@Override
@@ -114,9 +150,5 @@ public class Client {
 				+ ", mdp=" + mdp + ", adrnumero=" + adrnumero + ", adrvoie=" + adrvoie + ", adrcodepostal="
 				+ adrcodepostal + ", adrville=" + adrville + ", adrpays=" + adrpays + "]";
 	}
-
-
-
-
 
 }
