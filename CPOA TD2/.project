@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>src/projet/FXML/ajoutclient.fxml</name>
-			<type>1</type>
-			<locationURI>PROJECT_LOC/bin/projet/FXML/ajoutclient.fxml</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
