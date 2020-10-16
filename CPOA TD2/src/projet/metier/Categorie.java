@@ -45,9 +45,9 @@ public class Categorie {
 		}
 	}
 
-	@Override
+	
 	public String toString() {
-		return "Categorie [idcateg=" + idcateg + ", titre=" + titre + ", visuel=" + visuel + "]";
+		return titre;
 	}
 
 }

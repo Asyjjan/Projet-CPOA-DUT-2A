@@ -35,11 +35,11 @@ public class MySQLClientDAO implements ClientDAO {
 		requete.setString(2, objet.getPrenom());
 		requete.setString(3, objet.getIdentifiant());
 		requete.setString(4, objet.getMdp());
-		requete.setString(5, "*");
-		requete.setString(6, "*");
-		requete.setString(7, "*");
-		requete.setString(8, "*");
-		requete.setString(9, "*");
+		requete.setString(5, objet.getAdrnumero());
+		requete.setString(6, objet.getAdrvoie());
+		requete.setString(7, objet.getAdrcodepostal());
+		requete.setString(8, objet.getAdrville());
+		requete.setString(9, objet.getAdrpays());
 		nbLignes = requete.executeUpdate();
 		return nbLignes == 1;
 	}
