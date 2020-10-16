@@ -33,7 +33,7 @@ public class AjoutCategController{
 		ChoiceBoxCateg.setItems(categorie);
 	}
 
-  @FXML public void MajLabelAffichage(){
+  @FXML public void majLabelAffichage(){
 //		String nom = TextFieldNomCateg.getText().trim();
 //		String str = TextFieldTarifCateg.getText().trim();
 //		Categorie Categ = ChoiceBoxCateg.getValue();
