@@ -32,7 +32,11 @@ public class Produit {
 	}
 
 	public void setNom(String nom) {
-		this.nom = nom;
+		if (this.nom == null || this.nom.trim().isEmpty()) {
+
+		} else {
+			this.nom = nom;
+		}
 	}
 
 	public String getDesc() {
@@ -40,7 +44,11 @@ public class Produit {
 	}
 
 	public void setDesc(String desc) {
-		this.desc = desc;
+		if (this.desc == null || this.desc.trim().isEmpty()) {
+
+		} else {
+			this.desc = desc;
+		}
 	}
 
 	public float getTarif() {
@@ -56,7 +64,11 @@ public class Produit {
 	}
 
 	public void setVisuel(String visuel) {
-		this.visuel = visuel;
+		if (this.visuel == null || this.visuel.trim().isEmpty()) {
+
+		} else {
+			this.visuel = visuel;
+		}
 	}
 
 	public int getIdcateg() {
@@ -72,6 +84,5 @@ public class Produit {
 		return "Produit [idprod=" + idprod + ", nom=" + nom + ", desc=" + desc + ", tarif=" + tarif + ", visuel="
 				+ visuel + ", idcateg=" + idcateg + "]";
 	}
-
 
 }
