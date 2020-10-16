@@ -83,7 +83,7 @@ public class ListeMemoireLigneCommandeDAO implements LigneCommandeDAO {
 	@Override
 	public LigneCommande getById(int idc, int idp) throws SQLException {
 		// Ne fonctionne que si l'objet métier est bien fait...
-		int idx = this.donnees.indexOf(new LigneCommande(1, 2, 2, 41));
+		int idx = this.donnees.indexOf(new LigneCommande(1, 41));
 		if (idx == -1) {
 			throw new IllegalArgumentException("Aucune ligneCommande ne possède cet identifiant");
 		} else {
