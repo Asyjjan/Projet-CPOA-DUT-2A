@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.AjoutCategorieController">
    <children>
       <GridPane prefHeight="232.0" prefWidth="600.0">
         <columnConstraints>
@@ -21,32 +21,25 @@
         <rowConstraints>
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Id_categorie">
+            <Label text="Nom de la catégorie">
                <GridPane.margin>
                   <Insets left="75.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Titre" GridPane.rowIndex="1">
+            <Label text="Visuel" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="75.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Visuel" GridPane.rowIndex="2">
-               <GridPane.margin>
-                  <Insets left="75.0" />
-               </GridPane.margin>
-            </Label>
-            <TextField fx:id="textFieldCategorieIdcategorie" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldCategorieTitre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldCategorieVisuel" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldCategorieTitre" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldCategorieVisuel" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <FlowPane prefHeight="63.0" prefWidth="600.0">
          <children>
-            <Button fx:id="buttonCategorieCreer" mnemonicParsing="false" onAction="#majLabelAffichage" text="Créer">
+            <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Créer">
                <FlowPane.margin>
                   <Insets left="250.0" />
                </FlowPane.margin>
@@ -55,7 +48,7 @@
       </FlowPane>
       <FlowPane prefHeight="85.0" prefWidth="600.0">
          <children>
-            <Label fx:id="labelCategorieAffiche" text="Label">
+            <Label fx:id="labelAffichage">
                <FlowPane.margin>
                   <Insets left="250.0" />
                </FlowPane.margin>

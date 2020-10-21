@@ -110,14 +110,13 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			Parent root= FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutclient.fxml"));
+			Parent root= FXMLLoader.load(getClass().getResource("/projet/FXML/main.fxml"));
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-			primaryStage.setTitle("Fenetre client");
+			primaryStage.setTitle("Application de gestion commercial");
 			primaryStage.show();
 			} catch (Exception e) {
 			e.printStackTrace();
 			}
-		
 	}
 }
