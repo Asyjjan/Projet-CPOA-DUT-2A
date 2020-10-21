@@ -18,8 +18,7 @@ import projet.metier.Produit;
 public class AjoutCommandeController {
 
 	@FXML private ChoiceBox<Produit> choiceBoxProduit;
-	@FXML private DatePicker date;
-	@FXML private TextField textFieldDate;
+	@FXML private DatePicker datepicker;
 	@FXML private ChoiceBox<Client> choiceBoxClient;
 	@FXML private Button buttonValider;
 	@FXML private Label labelAffichage;
@@ -32,10 +31,10 @@ public class AjoutCommandeController {
 	@FXML public void majLabelAffichage() throws SQLException{
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		Produit produit = choiceBoxProduit.getValue();
-		LocalDate date = textFieldDate.getText();
+		LocalDate date = datepicker.getValue();
 		Client client = choiceBoxClient.getValue();
 
-		labelAffichage.setText("La commande a été crée : " + produit + " acheté le " + date + " par " + client);
+		labelAffichage.setText("La commande a ï¿½tï¿½ crï¿½e : " + produit + " achetï¿½ le " + date + " par " + client);
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		Commande commande = new Commande(0, date, client.getIdclient(), null);
 		dao.getCommandeDAO().create(commande);
