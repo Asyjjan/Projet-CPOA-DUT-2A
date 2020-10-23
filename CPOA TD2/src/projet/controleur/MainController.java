@@ -19,7 +19,7 @@ public class MainController {
 	@FXML private Button buttonCommande;
 	@FXML private Button buttonLigneCommande;
 	
-	@FXML public void initialize() {
+	@FXML public void initialize() throws IOException{
 	}
 
 	

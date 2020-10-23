@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="571.0" prefWidth="600.0" fx:controller="projet.controleur.EditClientController" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <GridPane prefHeight="387.0" prefWidth="600.0">
         <columnConstraints>
@@ -75,20 +75,20 @@
                   <Insets left="100.0" />
                </GridPane.margin>
             </Label>
-            <TextField fx:id="textFieldClientNom" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldClientPrenom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldClientIdentifiant" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldClientMdp" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="textFieldClientAdrnumero" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="textFieldClientAdrvoie" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="textFieldClientAdrcodepostal" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="textFieldClientAdrville" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="textFieldClientAdrpays" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldNomClient" GridPane.columnIndex="1" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldPrenomClient" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldIdentifiantClient" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldMdpClient" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldAdrNumClient" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldAdrVoieClient" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldCodePostalClient" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldVilleClient" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextField onKeyReleased="#keyReleasedProperty" fx:id="textFieldPaysClient" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
       </GridPane>
       <FlowPane prefHeight="91.0" prefWidth="600.0">
          <children>
-            <Button fx:id="buttonClientUpdate" mnemonicParsing="false" onAction="#majLabelAffichage" text="Modifier">
+            <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Modifier">
                <FlowPane.margin>
                   <Insets left="200.0" top="20.0" />
                </FlowPane.margin>
@@ -102,7 +102,7 @@
       </FlowPane>
       <FlowPane prefHeight="89.0" prefWidth="600.0">
          <children>
-            <Label fx:id="labelClientAffichage" text="Affichage">
+            <Label fx:id="labelAffichage">
                <FlowPane.margin>
                   <Insets left="250.0" />
                </FlowPane.margin>
