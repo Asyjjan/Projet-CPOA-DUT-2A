@@ -92,9 +92,14 @@
             </GridPane>
             <FlowPane orientation="VERTICAL" prefHeight="207.0" prefWidth="749.0">
                <children>
+                  <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#clickOnReturn" text="Retour">
+                     <FlowPane.margin>
+                        <Insets left="250.0" top="30.0" />
+                     </FlowPane.margin>
+                  </Button>
                   <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Créer">
                      <FlowPane.margin>
-                        <Insets left="350.0" top="30.0" />
+                        <Insets left="350.0" top="-25.0" />
                      </FlowPane.margin></Button>
                   <Label fx:id="labelAffichage">
                      <FlowPane.margin>

@@ -1,11 +1,18 @@
 package projet.controleur;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
 import projet.metier.Categorie;
@@ -24,6 +31,7 @@ public class AjoutClientController {
 	@FXML private TextField textFieldVilleClient;
 	@FXML private TextField textFieldPaysClient;
 	@FXML private Button buttonValider;
+	@FXML private Button buttonReturn;
 	@FXML private Label labelAffichage;
 
 	@FXML public void initialize() throws SQLException {
@@ -66,5 +74,15 @@ public class AjoutClientController {
 							  codepostal.isEmpty() || codepostal.trim().isEmpty() || ville.isEmpty() || ville.trim().isEmpty() ||
 							  pays.isEmpty() || pays.trim().isEmpty());
 		buttonValider.setDisable(isDisabled);
+	}
+	
+	@FXML public void clickOnReturn(ActionEvent e) throws IOException {
+		Parent Client = FXMLLoader.load(getClass().getResource("/projet/FXML/pageclient.fxml"));
+		Scene Clientscene = new Scene(Client);
+		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+		window.setScene(Clientscene);
+		window.centerOnScreen();
+		window.setTitle("Client");
+		window.show();
 	}
 }

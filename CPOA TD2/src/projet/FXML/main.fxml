@@ -24,10 +24,10 @@
         </rowConstraints>
          <children>
             <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clickOnClient" text="Client" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Categorie" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Commande" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Produit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Ligne commande" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clickOnCategorie" text="Categorie" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clickOnCommande" text="Commande" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clickOnProduit" text="Produit" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#clickOnLigneCommande" text="Ligne commande" GridPane.columnIndex="3" GridPane.rowIndex="2" />
          </children>
       </GridPane>
    </children>
