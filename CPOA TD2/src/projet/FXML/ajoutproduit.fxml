@@ -72,7 +72,7 @@
                         <Insets left="244.0" top="30.0" />
                      </FlowPane.margin>
                   </Label>
-                  <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#clickOnReturn" text="Retour">
+                  <Button fx:id="buttonReturn" mnemonicParsing="false" text="Retour">
                      <FlowPane.margin>
                         <Insets left="325.0" top="-71.0" />
                      </FlowPane.margin>

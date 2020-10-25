@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.EditCategorieController">
    <children>
       <GridPane prefHeight="242.0" prefWidth="600.0">
         <columnConstraints>
@@ -33,13 +33,13 @@
                   <Insets left="75.0" />
                </padding>
             </Label>
-            <TextField fx:id="textFieldCategorieTitre" GridPane.columnIndex="1" />
-            <TextField fx:id="textFieldCategorieVisuel" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldTitreCategorie" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" />
+            <TextField fx:id="textFieldVisuelCategorie" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="1" />
          </children>
       </GridPane>
       <FlowPane prefHeight="121.0" prefWidth="600.0">
          <children>
-            <Button fx:id="buttonCategorieUpdate" mnemonicParsing="false" onAction="#majLabelAffichage" text="Modifier">
+            <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Modifier">
                <FlowPane.margin>
                   <Insets left="200.0" top="25.0" />
                </FlowPane.margin>
@@ -53,7 +53,7 @@
       </FlowPane>
       <FlowPane prefHeight="86.0" prefWidth="600.0">
          <children>
-            <Label fx:id="labelCategorieAffichage" text="Modification">
+            <Label fx:id="labelAffichage">
                <FlowPane.margin>
                   <Insets left="250.0" />
                </FlowPane.margin>

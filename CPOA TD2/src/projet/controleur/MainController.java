@@ -44,7 +44,7 @@ public class MainController {
 	}
 	
 	@FXML public void clickOnCategorie(ActionEvent e) throws IOException {
-		Parent categorie = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutcategorie.fxml"));
+		Parent categorie = FXMLLoader.load(getClass().getResource("/projet/FXML/pagecategorie.fxml"));
 		Scene categorieScene = new Scene(categorie);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(categorieScene);
