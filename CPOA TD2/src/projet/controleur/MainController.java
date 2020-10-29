@@ -34,10 +34,10 @@ public class MainController {
 	}
 	
 	@FXML public void clickOnProduit(ActionEvent e) throws IOException {
-		Parent produit = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutproduit.fxml"));
-		Scene produitScene = new Scene(produit);
+		Parent Produit = FXMLLoader.load(getClass().getResource("/projet/FXML/pageproduit.fxml"));
+		Scene Produitscene = new Scene(Produit);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.setScene(produitScene);
+		window.setScene(Produitscene);
 		window.centerOnScreen();
 		window.setTitle("Produit");
 		window.show();
@@ -53,24 +53,24 @@ public class MainController {
 		window.show();
 	}
 	
-	@FXML public void clickOnCommande(ActionEvent e) throws IOException {
-		Parent commande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutcommande.fxml"));
-		Scene commandeScene = new Scene(commande);
-		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.setScene(commandeScene);
-		window.centerOnScreen();
-		window.setTitle("Commande");
-		window.show();
-	}
-	
-	@FXML public void clickOnLigneCommande(ActionEvent e) throws IOException {
-		Parent lignecommande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutlignecommande.fxml"));
-		Scene lignecommandeScene = new Scene(lignecommande);
-		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.setScene(lignecommandeScene);
-		window.centerOnScreen();
-		window.setTitle("Ligne Commande");
-		window.show();
-	}
+//	@FXML public void clickOnCommande(ActionEvent e) throws IOException {
+//		Parent commande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutcommande.fxml"));
+//		Scene commandeScene = new Scene(commande);
+//		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+//		window.setScene(commandeScene);
+//		window.centerOnScreen();
+//		window.setTitle("Commande");
+//		window.show();
+//	}
+//	
+//	@FXML public void clickOnLigneCommande(ActionEvent e) throws IOException {
+//		Parent lignecommande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutlignecommande.fxml"));
+//		Scene lignecommandeScene = new Scene(lignecommande);
+//		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+//		window.setScene(lignecommandeScene);
+//		window.centerOnScreen();
+//		window.setTitle("Ligne Commande");
+//		window.show();
+//	}
 
 }

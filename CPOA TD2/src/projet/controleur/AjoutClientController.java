@@ -39,7 +39,7 @@ public class AjoutClientController {
 		buttonValider.setDisable(true);
 	}
 	
-	@FXML public void majLabelAffichage() throws SQLException{
+	@FXML public void majLabelAffichage(ActionEvent e) throws SQLException, IOException{
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		String nom = textFieldNomClient.getText().trim();
 		String prenom = textFieldPrenomClient.getText().trim();
@@ -55,6 +55,8 @@ public class AjoutClientController {
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		Client client = new Client(0, nom, prenom, id, mdp, adrnum, adrvoie, codepostal, ville, pays);
 		dao.getClientDAO().create(client);
+		
+		clickOnReturn(e);
 		}
 	
 	@FXML public void keyReleasedProperty() {

@@ -87,7 +87,7 @@ public class MySQLClientDAO implements ClientDAO {
 		String adrPays = "";
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
-		ResultSet res = requete.executeQuery("SELECT * FROM Client WHERE Client.id_client = ?");
+		ResultSet res = requete.executeQuery("SELECT * FROM Client WHERE Client.id_client =" + id);
 		if (res.next()) {
 			nom = res.getString(2);
 			prenom = res.getString(3);

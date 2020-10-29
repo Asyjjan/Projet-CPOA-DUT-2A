@@ -37,6 +37,8 @@ public class PageCategorieController {
 	
 	@FXML public void initialize() throws SQLException {
 		loadData();
+//		buttonDelete.setDisable(true);
+//		buttonEdit.setDisable(true);
 	}
 	
 	@FXML public void clickOnAdd(ActionEvent e) throws IOException {
@@ -64,6 +66,7 @@ public class PageCategorieController {
 	}
 	
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
+		categ = tableViewCategorie.getSelectionModel().getSelectedItem();
 		Parent editCategorie = FXMLLoader.load(getClass().getResource("/projet/FXML/editcategorie.fxml"));
 		Scene editCategoriescene = new Scene(editCategorie);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
@@ -71,7 +74,6 @@ public class PageCategorieController {
 		window.centerOnScreen();
 		window.setTitle("Categorie");
 		window.show();
-		categ = tableViewCategorie.getSelectionModel().getSelectedItem();
 	}
 	
 	@FXML public void clickOnReturn(ActionEvent e) throws IOException {
@@ -94,4 +96,18 @@ public class PageCategorieController {
                     e.printStackTrace();
                 }
     }
+	
+//	@FXML public void categSelect() {
+//		categ = tableViewCategorie.getSelectionModel().getSelectedItem();
+//		boolean select;
+//		if(categ == null) {
+//			select = false;
+//		}
+//		else {
+//			select = true;
+//		}
+//		
+//		buttonDelete.setDisable(!select);
+//		buttonEdit.setDisable(!select);
+//	}
 }

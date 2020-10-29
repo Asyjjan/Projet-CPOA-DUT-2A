@@ -44,7 +44,7 @@ public class MySQLCategorieDAO implements CategorieDAO{
 		int nbLignes = 0;
 		Connection laConnexion = Connexion.creeConnexion();
 		PreparedStatement requete = laConnexion.prepareStatement(
-				"UPDATE Categorie SET titre = ?, visuel = ?, WHERE id_categorie = ?");
+				"UPDATE Categorie SET titre = ?, visuel = ? WHERE id_categorie = ?");
 		requete.setString(1, objet.getTitre());
 		requete.setString(2, objet.getVisuel());
 		requete.setInt(3, objet.getIdcateg());
@@ -68,7 +68,7 @@ public class MySQLCategorieDAO implements CategorieDAO{
 		String visuel = "";
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
-		ResultSet res = requete.executeQuery("SELECT * FROM Categorie WHERE id_categorie = ?");
+		ResultSet res = requete.executeQuery("SELECT * FROM Categorie WHERE id_categorie =" + id);
 		if (res.next()) {
 			titre = res.getString(2);
 			visuel = res.getString(3);

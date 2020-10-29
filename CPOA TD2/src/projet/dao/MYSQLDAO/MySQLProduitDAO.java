@@ -95,7 +95,7 @@ public class MySQLProduitDAO implements ProduitDAO {
 		int idcateg = 0;
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
-		ResultSet res = requete.executeQuery("SELECT * FROM Produit WHERE Produit.id_produit = ?");
+		ResultSet res = requete.executeQuery("SELECT * FROM Produit WHERE Produit.id_produit =" +id);
 		if (res.next()) {
 			nom = res.getString(2);
 			description = res.getString(3);

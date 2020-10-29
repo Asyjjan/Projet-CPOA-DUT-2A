@@ -36,7 +36,17 @@ public class EditClientController {
 	@FXML public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		buttonValider.setDisable(true);
-		PageClientController.getClient();
+		int idcl = PageClientController.getClient().getIdclient();
+		Client client = dao.getClientDAO().getById(idcl);
+		textFieldNomClient.setText(client.getNom());
+		textFieldPrenomClient.setText(client.getPrenom());
+		textFieldIdentifiantClient.setText(client.getIdentifiant());
+		textFieldMdpClient.setText(client.getMdp());
+		textFieldAdrNumClient.setText(client.getAdrnumero());
+		textFieldAdrVoieClient.setText(client.getAdrvoie());
+		textFieldCodePostalClient.setText(client.getAdrcodepostal());
+		textFieldVilleClient.setText(client.getAdrville());
+		textFieldPaysClient.setText(client.getAdrpays());
 	}
 	
 	
@@ -50,7 +60,7 @@ public class EditClientController {
 		window.show();
 	}
 	
-	@FXML public void majLabelAffichage() throws SQLException{
+	@FXML public void majLabelAffichage(ActionEvent e) throws SQLException, IOException{
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		int id = PageClientController.getClient().getIdclient();
 		String nom = textFieldNomClient.getText().trim();
@@ -68,6 +78,7 @@ public class EditClientController {
 		
 		Client client = new Client(id, nom, prenom, identifiant, mdp, adrnum, adrvoie, codepostal, ville, pays);
 		dao.getClientDAO().update(client);
+		clickOnReturn(e);
 		}
 	
 	@FXML public void keyReleasedProperty() {

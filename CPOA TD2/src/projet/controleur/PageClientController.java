@@ -70,6 +70,7 @@ public class PageClientController {
 	}
 	
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
+		client = tableViewClient.getSelectionModel().getSelectedItem();
 		Parent editCLient = FXMLLoader.load(getClass().getResource("/projet/FXML/editclient.fxml"));
 		Scene editClientscene = new Scene(editCLient);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
@@ -77,7 +78,6 @@ public class PageClientController {
 		window.centerOnScreen();
 		window.setTitle("Client");
 		window.show();
-		client = tableViewClient.getSelectionModel().getSelectedItem();
 	}
 	
 	@FXML public void clickOnReturn(ActionEvent e) throws IOException {
@@ -106,5 +106,19 @@ public class PageClientController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-    }
+	}
+	
+//	@FXML public void clientSelect() {
+//		client = tableViewClient.getSelectionModel().getSelectedItem();
+//		boolean select;
+//		if(client == null) {
+//			select = false;
+//		}
+//		else {
+//			select = true;
+//		}
+//		
+//		buttonDelete.setDisable(!select);
+//		buttonEdit.setDisable(!select);
+//	}
 }

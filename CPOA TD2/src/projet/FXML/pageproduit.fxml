@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.PageCategorieController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.PageProduitController">
    <children>
       <HBox layoutX="-5.0" layoutY="-5.0" prefHeight="649.0" prefWidth="991.0">
          <children>
@@ -63,10 +63,13 @@
             <VBox prefHeight="649.0" prefWidth="841.0">
                <children>
                   <FlowPane prefHeight="87.0" prefWidth="841.0" />
-                  <TableView fx:id="tableViewCategorie" prefHeight="559.0" prefWidth="841.0">
+                  <TableView fx:id="tableViewProduit" prefHeight="559.0" prefWidth="841.0">
                     <columns>
-                      <TableColumn fx:id="tableColumnTitre" prefWidth="407.0" text="Titre" />
-                      <TableColumn fx:id="tableColumnVisuel" minWidth="0.0" prefWidth="431.0" text="Visuel" />
+                      <TableColumn fx:id="tableColumnNom" prefWidth="151.0" text="Nom" />
+                      <TableColumn fx:id="tableColumnDesc" prefWidth="143.0" text="Description" />
+                        <TableColumn fx:id="tableColumnTarif" prefWidth="161.0" text="Tarif" />
+                        <TableColumn fx:id="tableColumnVisuel" prefWidth="178.0" text="Visuel" />
+                        <TableColumn fx:id="tableColumnCategorie" prefWidth="205.0" text="Categorie" />
                     </columns>
                   </TableView>
                </children>

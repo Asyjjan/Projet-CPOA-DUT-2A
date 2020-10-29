@@ -29,7 +29,10 @@ public class EditCategorieController {
 	@FXML public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		buttonValider.setDisable(true);
-		PageCategorieController.getCategorie();
+		int idcateg = PageCategorieController.getCategorie().getIdcateg();
+		Categorie categ = dao.getCategorieDAO().getById(idcateg);
+		textFieldTitreCategorie.setText(categ.getTitre());
+		textFieldVisuelCategorie.setText(categ.getVisuel());
 	}
 	
 	
@@ -43,7 +46,7 @@ public class EditCategorieController {
 		window.show();
 	}
 	
-	@FXML public void majLabelAffichage() throws SQLException{
+	@FXML public void majLabelAffichage(ActionEvent e) throws SQLException, IOException{
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		int id = PageCategorieController.getCategorie().getIdcateg();
 		String titre = textFieldTitreCategorie.getText().trim();
@@ -52,8 +55,9 @@ public class EditCategorieController {
 		labelAffichage.setText(titre + "," + visuel);
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		
-		Categorie categorie = new Categorie(id, titre, visuel);
-		dao.getCategorieDAO().update(categorie);
+		Categorie categ = new Categorie(id, titre, visuel);
+		dao.getCategorieDAO().update(categ);
+		clickOnReturn(e);
 		}
 	
 	@FXML public void keyReleasedProperty() {
