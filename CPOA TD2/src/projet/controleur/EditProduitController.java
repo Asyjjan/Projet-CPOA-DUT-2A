@@ -35,11 +35,12 @@ public class EditProduitController {
 	
 	@FXML public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		ObservableList<Categorie> categorie= FXCollections.observableArrayList(dao.getCategorieDAO().findAll());
-		choiceBoxCateg.setItems(categorie);
-		buttonValider.setDisable(true);
 		int idprod = PageProduitController.getProduit().getIdprod();
 		Produit produit = dao.getProduitDAO().getById(idprod);
+		ObservableList<Categorie> categorie= FXCollections.observableArrayList(dao.getCategorieDAO().findAll());
+		choiceBoxCateg.setItems(categorie);
+		choiceBoxCateg.setValue(dao.getCategorieDAO().getById(produit.getIdcateg()));
+		buttonValider.setDisable(true);
 		textFieldNomProduit.setText(produit.getNom());
 		textAreaDescProduit.setText(produit.getDesc());
 		textFieldTarifProduit.setText(String.valueOf(produit.getTarif()));
