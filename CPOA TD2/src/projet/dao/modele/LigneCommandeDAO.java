@@ -16,4 +16,6 @@ public interface LigneCommandeDAO {
 
 	LigneCommande getById(int idc, int idp) throws SQLException;
 
+	ArrayList<LigneCommande> findAll() throws SQLException;
+
 }

@@ -1,8 +1,12 @@
 package projet.metier;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+
+import projet.dao.DAOFactory;
+import projet.dao.Persistance;
 
 public class Commande {
 	DateTimeFormatter formatage = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -99,6 +103,6 @@ public class Commande {
 
 	@Override
 	public String toString() {
-		return "Commande [id=" + idcommande + ", date=" + formatage.format(getDatecommande()) + ", idClient=" + idclient + "]";
+		return idcommande + " , " + formatage.format(getDatecommande());
 	}
 }

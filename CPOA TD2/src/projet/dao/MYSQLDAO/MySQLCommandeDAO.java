@@ -141,7 +141,22 @@ public class MySQLCommandeDAO implements CommandeDAO{
 
 	@Override
 	public ArrayList<projet.metier.Commande> findAll() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Commande> p= new ArrayList();
+		try {
+			Connection laConnexion = Connexion.creeConnexion();
+			PreparedStatement requete = laConnexion.prepareStatement("select * from Commande");
+			ResultSet res = requete.executeQuery();
+
+			while (res.next()) {
+				HashMap<Produit, LigneCommande> ligneCommande = new HashMap<Produit, LigneCommande>();
+				p.add(new Commande (res.getInt(1), res.getDate(2).toLocalDate(), res.getInt(3), ligneCommande));
+			}
+
+		}catch (SQLException sqle) {
+			System.out.println("Problï¿½me ArrayList " + sqle.getMessage());
+		}
+		return p;
 	}
+
+
 }

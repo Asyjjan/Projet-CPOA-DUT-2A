@@ -62,15 +62,15 @@ public class MainController {
 //		window.setTitle("Commande");
 //		window.show();
 //	}
-//	
-//	@FXML public void clickOnLigneCommande(ActionEvent e) throws IOException {
-//		Parent lignecommande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutlignecommande.fxml"));
-//		Scene lignecommandeScene = new Scene(lignecommande);
-//		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-//		window.setScene(lignecommandeScene);
-//		window.centerOnScreen();
-//		window.setTitle("Ligne Commande");
-//		window.show();
-//	}
+	
+	@FXML public void clickOnLigneCommande(ActionEvent e) throws IOException {
+		Parent lignecommande = FXMLLoader.load(getClass().getResource("/projet/FXML/pagelignecommande.fxml"));
+		Scene lignecommandeScene = new Scene(lignecommande);
+		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
+		window.setScene(lignecommandeScene);
+		window.centerOnScreen();
+		window.setTitle("Ligne Commande");
+		window.show();
+	}
 
 }

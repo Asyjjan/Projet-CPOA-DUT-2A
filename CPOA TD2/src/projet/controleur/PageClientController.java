@@ -107,18 +107,4 @@ public class PageClientController {
                     e.printStackTrace();
                 }
 	}
-	
-//	@FXML public void clientSelect() {
-//		client = tableViewClient.getSelectionModel().getSelectedItem();
-//		boolean select;
-//		if(client == null) {
-//			select = false;
-//		}
-//		else {
-//			select = true;
-//		}
-//		
-//		buttonDelete.setDisable(!select);
-//		buttonEdit.setDisable(!select);
-//	}
 }

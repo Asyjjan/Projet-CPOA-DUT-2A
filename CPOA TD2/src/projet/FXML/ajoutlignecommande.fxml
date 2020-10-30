@@ -11,8 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.AjoutLigneCommandeController">
    <children>
       <GridPane prefHeight="282.0" prefWidth="600.0">
         <columnConstraints>
@@ -47,31 +46,27 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <ChoiceBox fx:id="choiceBoxLigneCommandeIdcommande" prefWidth="150.0" GridPane.columnIndex="1" />
-            <ChoiceBox fx:id="choiceBoxLigneCommandeIdproduit" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textFieldLigneCommandeQuantite" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldLigneCommandeTarif" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <ChoiceBox fx:id="choiceBoxCommande" prefWidth="150.0" GridPane.columnIndex="1" />
+            <ChoiceBox fx:id="choiceBoxProduit" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="textFieldQuantiteLigneCommande" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="textFieldTarifLigneCommande" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <FlowPane prefHeight="200.0" prefWidth="200.0">
          <children>
             <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Créer">
                <FlowPane.margin>
-                  <Insets left="200.0" top="25.0" />
+                  <Insets left="200.0" />
                </FlowPane.margin>
             </Button>
             <Button fx:id="buttonReturn" mnemonicParsing="false" onAction="#clickOnReturn" text="Retour">
                <FlowPane.margin>
-                  <Insets left="50.0" top="25.0" />
+                  <Insets left="50.0" />
                </FlowPane.margin>
             </Button>
-         </children>
-      </FlowPane>
-      <FlowPane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Label fx:id="labelAffichage" text="Affichage">
+            <Label fx:id="labelAffichage">
                <FlowPane.margin>
-                  <Insets left="250.0" top="30.0" />
+                  <Insets right="100.0" top="80.0" />
                </FlowPane.margin>
             </Label>
          </children>

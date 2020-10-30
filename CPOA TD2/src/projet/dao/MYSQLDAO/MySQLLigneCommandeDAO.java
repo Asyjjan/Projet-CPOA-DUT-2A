@@ -74,5 +74,24 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 		LigneCommande lignecommande = new LigneCommande(quantite, tarif);
 		return lignecommande;
 	}
+	
+	@Override
+    public ArrayList<LigneCommande> findAll() throws SQLException{
+        ArrayList<LigneCommande> listeLigneCommande = new ArrayList<LigneCommande>();;
+        
+        Connection laConnexion = Connexion.creeConnexion();
+      
+        PreparedStatement requete = laConnexion.prepareStatement("select * from `Ligne_commande`");
+        ResultSet res = requete.executeQuery();
+  
+        while (res.next()) { 
+            listeLigneCommande.add(new LigneCommande(res.getInt(3), res.getFloat(4))) ;
+        }
+  
+        if (laConnexion != null) 
+            laConnexion.close();
+         
+        return listeLigneCommande;
+    }
 
 	}

@@ -2,7 +2,10 @@ package projet.controleur;
 
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
+import projet.metier.Commande;
 import projet.metier.LigneCommande;
+import projet.metier.Produit;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import javafx.collections.ObservableList;
@@ -22,20 +25,16 @@ public class PageLigneCommandeController {
 
 	public static LigneCommande lignecom;
 
-	@FXML
-	private Button buttonAdd;
-	@FXML
-	private Button buttonDelete;
-	@FXML
-	private Button buttonEdit;
-	@FXML
-	private Button buttonReturn;
-	@FXML
-	private TableView<LigneCommande> tableViewLigneCommande;
+	@FXML private Button buttonAdd;
+	@FXML private Button buttonDelete;
+	@FXML private Button buttonEdit;
+	@FXML private Button buttonReturn;
+	@FXML private TableView<LigneCommande> tableViewLigneCommande;
+	@FXML private TableColumn<LigneCommande, Commande> tableColumnCommande;
+	@FXML private TableColumn<LigneCommande, Produit> tableColumnProduit;
+	@FXML private TableColumn<LigneCommande, Produit> tableColumnQuantite;
+	@FXML private TableColumn<LigneCommande, Produit> tableColumnTarif;
 
-	@FXML private TableColumn<LigneCommande, int> tableColumnQuantite;
-	@FXML private TableColumn<LigneCommande, float> tableColumnTarif;
-	
 	public static LigneCommande getLigneCommande() {
 		return lignecom;
 	}
@@ -47,7 +46,7 @@ public class PageLigneCommandeController {
 
 	@FXML
 	public void clickOnAdd(ActionEvent e) throws IOException {
-		Parent addLigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutLigneCommande.fxml"));
+		Parent addLigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutlignecommande.fxml"));
 		Scene addLigneCommandescene = new Scene(addLigneCommande);
 		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		window.setScene(addLigneCommandescene);
@@ -66,7 +65,9 @@ public class PageLigneCommandeController {
 		for (LigneCommande lignecommande : Ligneselect) {
 			Allpeople.remove(lignecommande);
 			System.out.println(lignecommande);
-			dao.getLigneCommandeDAO().delete(lignecommande);
+			int idcom = tableColumnCommande.getValue();
+			int idprod = tableColumnProduit.getValue();
+			dao.getLigneCommandeDAO().delete(idcom, idprod);
 		}
 	}
 
@@ -96,8 +97,10 @@ public class PageLigneCommandeController {
 	@FXML
 	public void loadData() {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		this.tableColumnQuantite.setCellValueFactory(new PropertyValueFactory<>("Quantite"));
-		this.tableColumnTarif.setCellValueFactory(new PropertyValueFactory<>("Tarif"));
+		this.tableColumnQuantite.setCellValueFactory(new PropertyValueFactory<>("id_commande"));
+		this.tableColumnTarif.setCellValueFactory(new PropertyValueFactory<>("id_produit"));
+		this.tableColumnQuantite.setCellValueFactory(new PropertyValueFactory<>("quantite"));
+		this.tableColumnTarif.setCellValueFactory(new PropertyValueFactory<>("tarif"));
 		try {
 			this.tableViewLigneCommande.getItems().addAll(dao.getLigneCommandeDAO().findAll());
 		} catch (Exception e) {
