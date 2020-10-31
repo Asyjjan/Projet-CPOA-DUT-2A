@@ -1,8 +1,15 @@
 package projet.controleur;
 
+import org.apache.maven.model.Parent;
+
+import com.gluonhq.charm.glisten.control.TextField;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Scalar.String;
+
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
+import projet.metier.Commande;
 import projet.metier.LigneCommande;
+import projet.metier.Produit;
 
 public class EditLigneCommandeController {
 
@@ -16,18 +23,20 @@ public class EditLigneCommandeController {
 	private TextField textFieldLigneCommandeQuantite;
 	@FXML
 	private TextField textFieldLigneCommandeTarif;
+	@FXML
+	private ChoiceBox<Commande> choiceBoxCommande;
+	@FXML
+	private ChoiceBox<Produit> choiceBoxProduit;
 
 	@FXML
 	public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		buttonValider.setDisable(true);
-		///////////////////////////////////////////////////////////////////////////////////////////// quantite
-		///////////////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////////////// PageLigneCommandeController.getLigneCommande().getquantite();
-		//////////////////////////////////////////////////////////////////////////////////////////// LigneCommande
-		///////////////////////////////////////////////////////////////////////////////////////////// lignecom
-		///////////////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////////////// dao.getLigneCommandeDAO().getById(quantite);
+		ObservableList<Commande> commande = FXCollections.observableArrayList(dao.getCommandeDAO().findAll());
+		ObservableList<Produit> produit = FXCollections.observableArrayList(dao.getProduitDAO().findAll());
+		LigneCommande lignecom = dao.getLigneCommandeDAO().getById(idcom, idprod);
+		choiceBoxCommande.setItems(commande);
+		choiceBoxProduit.setItems(produit);
 		textFieldLigneCommandeQuantite.setText(lignecom.getQuantite());
 		textFieldLigneCommandeTarif.setText(lignecom.getTarif());
 	}
@@ -46,12 +55,13 @@ public class EditLigneCommandeController {
 	@FXML
 	public void majLabelAffichage(ActionEvent e) throws SQLException, IOException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		///////////////////////////////////////////////////////////////////////////////////// int
-		///////////////////////////////////////////////////////////////////////////////////// id
-		///////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////// PageLigneCommandeController.getLigneCommande().getId();
-		int quantite = textFieldLigneCommandeQuantite.getText().trim();
-		float tarif = textFieldLigneCommandeTarif.getText().trim();
+		String strquantite = textFieldQuantiteLigneCommande.getText().trim();
+		String strtarif = textFieldTarifLigneCommande.getText().trim();
+
+		int quantite = Integer.parseInt(strquantite);
+		float tarif = Float.parseFloat(strtarif);
+		int idcom = choiceBoxCommande.getValue().getIdcommande();
+		int idprod = choiceBoxProduit.getValue().getIdprod();
 
 		labelAffichage.setText(quantite + "," + tarif);
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
