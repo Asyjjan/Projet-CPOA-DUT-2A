@@ -61,7 +61,7 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 	}
 
 	@Override
-	public LigneCommande getById(int idcommande, int idproduit) throws SQLException {
+	public LigneCommande getById(int idprod, int idcommande, int idproduit) throws SQLException {
 		int quantite = 0;
 		float tarif = 0;
 		Connection laConnexion = Connexion.creeConnexion();
@@ -71,7 +71,7 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 			quantite = res.getInt(3);
 			tarif = res.getFloat(4);
 		}
-		LigneCommande lignecommande = new LigneCommande(quantite, tarif);
+		LigneCommande lignecommande = new LigneCommande(idprod, quantite, tarif);
 		return lignecommande;
 	}
 	
@@ -85,7 +85,7 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
         ResultSet res = requete.executeQuery();
   
         while (res.next()) { 
-            listeLigneCommande.add(new LigneCommande(res.getInt(3), res.getFloat(4))) ;
+            listeLigneCommande.add(new LigneCommande(res.getInt(2), res.getInt(3), res.getFloat(4))) ;
         }
   
         if (laConnexion != null) 

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/8.0.202" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="575.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.AjoutCommandeController">
    <children>
       <VBox layoutX="-2.0" layoutY="-2.0" prefHeight="415.0" prefWidth="581.0">
          <children>
@@ -27,8 +27,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <DatePicker fx:id="datePickerCommandedatecommande" GridPane.columnIndex="1" />
-                  <ChoiceBox fx:id="choiceBoxCommandeIdclient" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="datePickerCommande" onMouseClicked="#keyReleasedProperty" onMouseDragged="#keyReleasedProperty" onMouseEntered="#keyReleasedProperty" onMouseExited="#keyReleasedProperty" onMouseMoved="#keyReleasedProperty" onMousePressed="#keyReleasedProperty" onMouseReleased="#keyReleasedProperty" GridPane.columnIndex="1" />
+                  <ChoiceBox fx:id="choiceBoxClient" onMouseClicked="#keyReleasedProperty" onMouseEntered="#keyReleasedProperty" onMouseExited="#keyReleasedProperty" onMousePressed="#keyReleasedProperty" onMouseReleased="#keyReleasedProperty" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                   <Label text="Date de la commande">
                      <GridPane.margin>
                         <Insets left="100.0" />
@@ -41,7 +41,7 @@
                   </Label>
                </children>
             </GridPane>
-            <FlowPane prefHeight="75.0" prefWidth="581.0">
+            <FlowPane onMouseEntered="#keyReleasedProperty" onMouseExited="#keyReleasedProperty" onMouseMoved="#keyReleasedProperty" prefHeight="168.0" prefWidth="581.0">
                <children>
                   <Button fx:id="buttonValider" mnemonicParsing="false" onAction="#majLabelAffichage" text="Ajouter">
                      <FlowPane.margin>
@@ -53,16 +53,12 @@
                         <Insets left="50.0" top="25.0" />
                      </FlowPane.margin>
                   </Button>
-               </children></FlowPane>
-            <FlowPane prefHeight="125.0" prefWidth="581.0">
-               <children>
                   <Label fx:id="labelAffichage" text="Affichage">
                      <FlowPane.margin>
                         <Insets left="250.0" top="25.0" />
                      </FlowPane.margin>
                   </Label>
-               </children>
-            </FlowPane>
+               </children></FlowPane>
          </children>
       </VBox>
    </children>

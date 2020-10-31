@@ -14,8 +14,8 @@ public interface LigneCommandeDAO {
 
 	boolean delete(int idc, int idp) throws SQLException;
 
-	LigneCommande getById(int idc, int idp) throws SQLException;
-
 	ArrayList<LigneCommande> findAll() throws SQLException;
+
+	LigneCommande getById(int idprod, int idcommande, int idproduit) throws SQLException;
 
 }

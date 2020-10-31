@@ -103,6 +103,6 @@ public class Commande {
 
 	@Override
 	public String toString() {
-		return idcommande + " , " + formatage.format(getDatecommande());
+		return "Commande numéro : " + idcommande + " , " + formatage.format(getDatecommande());
 	}
 }
