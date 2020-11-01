@@ -52,7 +52,7 @@ public class AjoutLigneCommandeController {
 		int idprod = choiceBoxProduit.getValue().getIdprod();
 
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
-		labelAffichage.setText("La LigneCommande de quantite : " + quantite + " à été ajoutée");
+		labelAffichage.setText("La LigneCommande de quantite : " + quantite + " a été ajoutée");
 		LigneCommande lignecom = new LigneCommande(idprod, quantite, dao.getProduitDAO().getById(idprod).getTarif());
 		dao.getLigneCommandeDAO().create(idcom, lignecom);
 		clickOnReturn(e);
