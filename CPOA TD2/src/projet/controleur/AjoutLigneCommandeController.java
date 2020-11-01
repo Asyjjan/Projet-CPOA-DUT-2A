@@ -73,7 +73,7 @@ public class AjoutLigneCommandeController {
 		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		window.setScene(LigneCommandescene);
 		window.centerOnScreen();
-		window.setTitle("Lignecommande");
+		window.setTitle("LigneCommande");
 		window.show();
 	}
 }
