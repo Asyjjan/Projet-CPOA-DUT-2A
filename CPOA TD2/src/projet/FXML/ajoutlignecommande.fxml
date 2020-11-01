@@ -41,16 +41,13 @@
                   <Insets left="150.0" />
                </GridPane.margin>
             </Label>
-            <Label text="Tarif" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="150.0" />
-               </GridPane.margin>
-            </Label>
             <ChoiceBox fx:id="choiceBoxCommande" prefWidth="150.0" GridPane.columnIndex="1" />
             <ChoiceBox fx:id="choiceBoxProduit" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="textFieldQuantiteLigneCommande" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textFieldTarifLigneCommande" onKeyReleased="#keyReleasedProperty" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
       </GridPane>
       <FlowPane prefHeight="200.0" prefWidth="200.0">
          <children>

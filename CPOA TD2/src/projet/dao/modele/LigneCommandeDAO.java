@@ -8,7 +8,7 @@ import projet.metier.LigneCommande;
 
 public interface LigneCommandeDAO {
 
-	boolean create(int idc, int idp, LigneCommande objet) throws SQLException;
+	boolean create(int idc, LigneCommande objet) throws SQLException;
 
 	boolean update(int idc, int idp, LigneCommande objet) throws SQLException;
 

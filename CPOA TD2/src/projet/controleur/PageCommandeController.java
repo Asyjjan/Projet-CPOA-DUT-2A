@@ -91,7 +91,7 @@ public class PageCommandeController {
 	}
 	
 	@FXML public void clickOnReturn(ActionEvent e) throws IOException {
-		Parent returnClient = FXMLLoader.load(getClass().getResource("/projet/FXML/pagecommande.fxml"));
+		Parent returnClient = FXMLLoader.load(getClass().getResource("/projet/FXML/main.fxml"));
 		Scene returnClientscene = new Scene(returnClient);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(returnClientscene);

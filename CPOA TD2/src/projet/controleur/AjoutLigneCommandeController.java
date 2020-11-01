@@ -26,7 +26,6 @@ import projet.metier.Produit;
 public class AjoutLigneCommandeController {
 
 	@FXML private TextField textFieldQuantiteLigneCommande;
-	@FXML private TextField textFieldTarifLigneCommande;
 	@FXML private ChoiceBox<Commande> choiceBoxCommande;
 	@FXML private ChoiceBox<Produit> choiceBoxProduit;
 	@FXML private Label labelAffichage;
@@ -47,26 +46,23 @@ public class AjoutLigneCommandeController {
 	public void majLabelAffichage(ActionEvent e) throws SQLException, IOException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		String strquantite = textFieldQuantiteLigneCommande.getText().trim();
-		String strtarif = textFieldTarifLigneCommande.getText().trim();
 		
 		int quantite = Integer.parseInt(strquantite);
-		float tarif = Float.parseFloat(strtarif);
 		int idcom = choiceBoxCommande.getValue().getIdcommande();
 		int idprod = choiceBoxProduit.getValue().getIdprod();
 
 		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		labelAffichage.setText("La LigneCommande de quantite : " + quantite + " à été ajoutée");
-		LigneCommande lignecom = new LigneCommande(quantite, tarif);
-		dao.getLigneCommandeDAO().create(idcom, idprod, lignecom);
+		LigneCommande lignecom = new LigneCommande(idprod, quantite, dao.getProduitDAO().getById(idprod).getTarif());
+		dao.getLigneCommandeDAO().create(idcom, lignecom);
 		clickOnReturn(e);
 	}
 
 	@FXML
 	public void keyReleasedProperty() {
 		String quantite = textFieldQuantiteLigneCommande.getText();
-		String tarif = textFieldTarifLigneCommande.getText();
 
-		boolean isDisabled = (quantite.isEmpty() || quantite.trim().isEmpty() || tarif.isEmpty() || tarif.trim().isEmpty());
+		boolean isDisabled = (quantite.isEmpty() || quantite.trim().isEmpty());
 		buttonValider.setDisable(isDisabled);
 	}
 

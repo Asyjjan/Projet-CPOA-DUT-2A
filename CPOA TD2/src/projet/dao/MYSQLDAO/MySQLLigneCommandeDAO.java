@@ -26,13 +26,13 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 	}
 
 	@Override
-	public boolean create(int idcommande, int idproduit, LigneCommande objet) throws SQLException {
+	public boolean create(int idcommande, LigneCommande objet) throws SQLException {
 		int nbLignes = 0;
 		Connection laConnexion = Connexion.creeConnexion();
 		PreparedStatement requete = laConnexion.prepareStatement(
 				"INSERT INTO 	Ligne_commande (id_commande, id_produit, quantite, tarif_unitaire) VALUES (?,?,?,?)");
 		requete.setInt(1, idcommande);
-		requete.setInt(2, idproduit);
+		requete.setInt(2, objet.getIdprod());
 		requete.setInt(3, objet.getQuantite());
 		requete.setFloat(4, objet.getTarif());
 		nbLignes = requete.executeUpdate();
