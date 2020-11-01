@@ -39,6 +39,8 @@ public class PageProduitController {
 	
 	@FXML public void initialize() throws SQLException {
 		loadData();
+		buttonDelete.setDisable(true);
+		buttonEdit.setDisable(true);
 	}
 	
 	@FXML public void clickOnAdd(ActionEvent e) throws IOException {
@@ -98,6 +100,11 @@ public class PageProduitController {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+	}
+	
+	@FXML public void clickOnTable() {
+		buttonDelete.setDisable(false);
+		buttonEdit.setDisable(false);
 	}
 }
 

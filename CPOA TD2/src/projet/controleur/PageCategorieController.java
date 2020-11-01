@@ -37,8 +37,8 @@ public class PageCategorieController {
 	
 	@FXML public void initialize() throws SQLException {
 		loadData();
-//		buttonDelete.setDisable(true);
-//		buttonEdit.setDisable(true);
+		buttonDelete.setDisable(true);
+		buttonEdit.setDisable(true);
 	}
 	
 	@FXML public void clickOnAdd(ActionEvent e) throws IOException {
@@ -97,17 +97,8 @@ public class PageCategorieController {
                 }
     }
 	
-//	@FXML public void categSelect() {
-//		categ = tableViewCategorie.getSelectionModel().getSelectedItem();
-//		boolean select;
-//		if(categ == null) {
-//			select = false;
-//		}
-//		else {
-//			select = true;
-//		}
-//		
-//		buttonDelete.setDisable(!select);
-//		buttonEdit.setDisable(!select);
-//	}
+	@FXML public void clickOnTable() {
+		buttonDelete.setDisable(false);
+		buttonEdit.setDisable(false);
+	}
 }

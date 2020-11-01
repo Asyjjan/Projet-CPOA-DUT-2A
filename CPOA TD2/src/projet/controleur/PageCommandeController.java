@@ -53,6 +53,8 @@ public class PageCommandeController {
 		ObservableList<Commande> commande= FXCollections.observableArrayList(dao.getCommandeDAO().findAll());
 		choiceBoxCommande.setItems(commande);
 		loadData();
+		buttonDelete.setDisable(true);
+		buttonEdit.setDisable(true);
 	}
 	
 	@FXML public void clickOnAdd(ActionEvent e) throws IOException {
@@ -120,5 +122,10 @@ public class PageCommandeController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@FXML public void clickOnTable() {
+		buttonDelete.setDisable(false);
+		buttonEdit.setDisable(false);
 	}
 }
