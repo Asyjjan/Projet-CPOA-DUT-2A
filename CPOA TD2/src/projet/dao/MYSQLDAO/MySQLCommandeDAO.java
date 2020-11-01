@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import projet.dao.modele.CommandeDAO;
-import projet.menu.Connexion;
 import projet.metier.LigneCommande;
 import projet.metier.Produit;
+import projet.utilitaire.Connexion;
 import projet.metier.Commande;
 import projet.metier.*;
 
@@ -127,7 +127,7 @@ public class MySQLCommandeDAO implements CommandeDAO{
 				ResultSet resProd = requeteProd.executeQuery();
 
 				ligneCommande.put(new Produit(resProd.getInt(1), resProd.getString(2), resProd.getString(3), resProd.getFloat(4), resProd.getString(5), resProd.getInt(6)), 
-						new LigneCommande(resLc.getInt(2), resLc.getInt(3), resLc.getFloat(4)));
+						new LigneCommande(resLc.getInt(1), resLc.getInt(2), resLc.getInt(3), resLc.getFloat(4)));
 			}
 
 			commande = new Commande(res.getInt(1), res.getDate(2).toLocalDate(), res.getInt(3), ligneCommande);

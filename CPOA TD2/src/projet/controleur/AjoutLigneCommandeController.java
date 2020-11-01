@@ -46,14 +46,11 @@ public class AjoutLigneCommandeController {
 	public void majLabelAffichage(ActionEvent e) throws SQLException, IOException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		String strquantite = textFieldQuantiteLigneCommande.getText().trim();
-		
+
 		int quantite = Integer.parseInt(strquantite);
 		int idcom = choiceBoxCommande.getValue().getIdcommande();
 		int idprod = choiceBoxProduit.getValue().getIdprod();
-
-		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
-		labelAffichage.setText("La LigneCommande de quantite : " + quantite + " a été ajoutée");
-		LigneCommande lignecom = new LigneCommande(idprod, quantite, dao.getProduitDAO().getById(idprod).getTarif());
+		LigneCommande lignecom = new LigneCommande(choiceBoxCommande.getValue().getIdcommande(),idprod, quantite, dao.getProduitDAO().getById(idprod).getTarif());
 		dao.getLigneCommandeDAO().create(idcom, lignecom);
 		clickOnReturn(e);
 	}
@@ -68,7 +65,7 @@ public class AjoutLigneCommandeController {
 
 	@FXML
 	public void clickOnReturn(ActionEvent e) throws IOException {
-		Parent LigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/main.fxml"));
+		Parent LigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/pagecommande.fxml"));
 		Scene LigneCommandescene = new Scene(LigneCommande);
 		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		window.setScene(LigneCommandescene);

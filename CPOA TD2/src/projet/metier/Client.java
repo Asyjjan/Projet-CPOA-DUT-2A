@@ -146,9 +146,7 @@ public class Client {
 
 	@Override
 	public String toString() {
-		return "Client [idclient=" + idclient + ", nom=" + nom + ", prenom=" + prenom + ", identifiant=" + identifiant
-				+ ", mdp=" + mdp + ", adrnumero=" + adrnumero + ", adrvoie=" + adrvoie + ", adrcodepostal="
-				+ adrcodepostal + ", adrville=" + adrville + ", adrpays=" + adrpays + "]";
+		return nom + " " + prenom ;
 	}
 
 }

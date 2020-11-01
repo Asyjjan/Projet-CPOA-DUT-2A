@@ -10,12 +10,12 @@ public interface LigneCommandeDAO {
 
 	boolean create(int idc, LigneCommande objet) throws SQLException;
 
-	boolean update(int idc, int idp, LigneCommande objet) throws SQLException;
-
 	boolean delete(int idc, int idp) throws SQLException;
 
 	ArrayList<LigneCommande> findAll() throws SQLException;
 
-	LigneCommande getById(int idprod, int idcommande, int idproduit) throws SQLException;
+	LigneCommande getById(int idcommande, int idproduit) throws SQLException;
+
+	boolean update(LigneCommande objet) throws SQLException;
 
 }

@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import projet.dao.modele.ClientDAO;
-import projet.menu.Connexion;
 import projet.metier.Client;
+import projet.utilitaire.Connexion;
 
 public class MySQLClientDAO implements ClientDAO {
 

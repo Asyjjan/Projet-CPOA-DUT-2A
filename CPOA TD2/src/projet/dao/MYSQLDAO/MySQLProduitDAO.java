@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import projet.*;
 import projet.dao.modele.ProduitDAO;
-import projet.menu.Connexion;
 import projet.metier.Produit;
+import projet.utilitaire.Connexion;
 
 public class MySQLProduitDAO implements ProduitDAO {
 

@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import projet.dao.modele.CategorieDAO;
-import projet.menu.Connexion;
 import projet.metier.*;
+import projet.utilitaire.Connexion;
 
 public class MySQLCategorieDAO implements CategorieDAO{
 

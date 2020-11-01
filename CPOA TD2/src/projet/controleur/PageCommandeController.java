@@ -2,6 +2,7 @@ package projet.controleur;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +19,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -31,27 +33,25 @@ import projet.metier.Produit;
 
 public class PageCommandeController {
 	
-	public static Commande commande;
 	public static LigneCommande lignecommande;
 	
 	@FXML private Button buttonAdd;
 	@FXML private Button buttonDelete;
 	@FXML private Button buttonEdit;
 	@FXML private Button buttonReturn;
-	@FXML private ChoiceBox<Commande> choiceBoxCommande;
+	@FXML private TextField textFieldFiltreCommande;
 	@FXML private TableView<LigneCommande> tableViewLigneCommande;
+	@FXML private TableColumn<LigneCommande, Integer> tableColumnCommande;
 	@FXML private TableColumn<LigneCommande, String> tableColumnProduit;
 	@FXML private TableColumn<LigneCommande, Integer> tableColumnQuantite;
 	@FXML private TableColumn<LigneCommande, Integer> tableColumnTarif;
 	
-	public static Commande getCommande() {
-		return commande;
+	public static LigneCommande getLigneCommande() {
+		return lignecommande;
 	}
 	
 	@FXML public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		ObservableList<Commande> commande= FXCollections.observableArrayList(dao.getCommandeDAO().findAll());
-		choiceBoxCommande.setItems(commande);
 		loadData();
 		buttonDelete.setDisable(true);
 		buttonEdit.setDisable(true);
@@ -77,18 +77,18 @@ public class PageCommandeController {
         {
             Allpeople.remove(lignecom);
             System.out.println(lignecom);
-            dao.getLigneCommandeDAO().delete(choiceBoxCommande.getValue().getIdcommande(), tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdprod());
+            dao.getLigneCommandeDAO().delete(tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdcom(), tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdprod());
         }     
 	}
 	
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
 		lignecommande = tableViewLigneCommande.getSelectionModel().getSelectedItem();
-		Parent editCLient = FXMLLoader.load(getClass().getResource("/projet/FXML/editlignecommande.fxml"));
-		Scene editClientscene = new Scene(editCLient);
+		Parent editLigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/editlignecommande.fxml"));
+		Scene editLigneCommandescene = new Scene(editLigneCommande);
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
-		window.setScene(editClientscene);
+		window.setScene(editLigneCommandescene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("LigneCommande");
 		window.show();
 	}
 	
@@ -105,6 +105,7 @@ public class PageCommandeController {
 	@FXML
 	public void loadData() {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
+		this.tableColumnCommande.setCellValueFactory(new PropertyValueFactory<>("idcom"));
 		this.tableColumnProduit.setCellValueFactory(new Callback<CellDataFeatures<LigneCommande, String>, ObservableValue<String>>() {
             public SimpleObjectProperty<String> call(CellDataFeatures<LigneCommande, String> p) {
                 try {
@@ -125,7 +126,62 @@ public class PageCommandeController {
 	}
 	
 	@FXML public void clickOnTable() {
-		buttonDelete.setDisable(false);
-		buttonEdit.setDisable(false);
+		LigneCommande commande = tableViewLigneCommande.getSelectionModel().getSelectedItem();
+		if(commande == null) {
+			
+		}
+		else {
+			buttonDelete.setDisable(false);
+			buttonEdit.setDisable(false);
+		}
+	}
+	
+	@FXML public ArrayList<LigneCommande> filtreLigneCommande() {
+		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
+		String lignecom = textFieldFiltreCommande.getText().trim().toLowerCase();
+		ArrayList<LigneCommande> listecom = new ArrayList<LigneCommande>();
+		try {
+			if (lignecom.equals("")) {
+				listecom.addAll(dao.getLigneCommandeDAO().findAll());
+			}
+			else {
+				for (LigneCommande lc : dao.getLigneCommandeDAO().findAll()) {
+					if (String.valueOf(lc.getIdcom()).toLowerCase().contains(lignecom)) {
+						listecom.add(lc);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listecom;
+	}
+	
+	@FXML public void filtrageLigneCommande() {
+		ArrayList<LigneCommande> lignecommandeID = filtreLigneCommande();
+		ObservableList<LigneCommande> listeLigneCommandeSelect = FXCollections.observableArrayList();
+		ObservableList<LigneCommande> listeLigneCommandeSurplus = FXCollections.observableArrayList();
+		ObservableList<LigneCommande> listeLigneCommandetMino = FXCollections.observableArrayList();
+
+		for (LigneCommande lc: lignecommandeID) {
+			if (lignecommandeID.contains(lc))
+				listeLigneCommandeSelect.add(lc);
+		}
+		//On enleve de la tableView tout produit non present dans listeProdSelect mais present dans la tableView
+		ObservableList<LigneCommande> trans1 = tableViewLigneCommande.getItems();
+		for (LigneCommande lc : trans1) {
+			if (!listeLigneCommandeSelect.contains(lc))
+				listeLigneCommandeSurplus.add(lc);
+		}
+
+		//On rajoute dans la tableView tout produit present dans listeProdSelect mais non present dans la tableView
+		ObservableList<LigneCommande> trans2 = tableViewLigneCommande.getItems();
+		for (LigneCommande lc : listeLigneCommandeSelect ) {
+			if (!trans2.contains(lc))
+				listeLigneCommandetMino.add(lc);
+		}
+
+		tableViewLigneCommande.getItems().removeAll(listeLigneCommandeSurplus);
+		tableViewLigneCommande.getItems().addAll(listeLigneCommandetMino);
 	}
 }

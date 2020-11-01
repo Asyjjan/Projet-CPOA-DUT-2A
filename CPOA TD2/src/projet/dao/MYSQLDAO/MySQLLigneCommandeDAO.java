@@ -8,8 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import projet.dao.modele.LigneCommandeDAO;
-import projet.menu.Connexion;
 import projet.metier.*;
+import projet.utilitaire.Connexion;
 
 public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 
@@ -40,13 +40,15 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 	}
 
 	@Override
-	public boolean update(int idcommande, int idproduit, LigneCommande objet) throws SQLException {
+	public boolean update(LigneCommande objet) throws SQLException {
 		int nbLignes = 0;
 		Connection laConnexion = Connexion.creeConnexion();
 		PreparedStatement requete = laConnexion.prepareStatement(
-				"UPDATE Ligne_commande SET quantite = ?, tarif_unitaire = ?, WHERE id_commande =" + idcommande + "and id_produit ="+ idproduit + "VALUES(?,?)");
+				"UPDATE Ligne_commande SET quantite = ?, tarif_unitaire = ?, WHERE id_commande = ?, and id_produit = ? VALUES(?,?,?,?)");
 		requete.setInt(1, objet.getQuantite());
 		requete.setFloat(2, objet.getTarif());
+		requete.setInt(3, objet.getIdcom());
+		requete.setFloat(4, objet.getIdprod());
 		nbLignes = requete.executeUpdate();
 		return nbLignes == 1;
 	}
@@ -61,17 +63,19 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
 	}
 
 	@Override
-	public LigneCommande getById(int idprod, int idcommande, int idproduit) throws SQLException {
+	public LigneCommande getById(int idcommande, int idproduit) throws SQLException {
 		int quantite = 0;
+		int idprod = 0;
 		float tarif = 0;
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
 		ResultSet res = requete.executeQuery("SELECT * FROM Ligne_commande WHERE id_commande = " + idcommande + " and id_produit =" +idproduit);
 		if (res.next()) {
+			idprod = res.getInt(2);
 			quantite = res.getInt(3);
 			tarif = res.getFloat(4);
 		}
-		LigneCommande lignecommande = new LigneCommande(idprod, quantite, tarif);
+		LigneCommande lignecommande = new LigneCommande(idcommande ,idprod, quantite, tarif);
 		return lignecommande;
 	}
 	
@@ -85,7 +89,7 @@ public class MySQLLigneCommandeDAO implements LigneCommandeDAO{
         ResultSet res = requete.executeQuery();
   
         while (res.next()) { 
-            listeLigneCommande.add(new LigneCommande(res.getInt(2), res.getInt(3), res.getFloat(4))) ;
+            listeLigneCommande.add(new LigneCommande(res.getInt(1), res.getInt(2), res.getInt(3), res.getFloat(4))) ;
         }
   
         if (laConnexion != null) 

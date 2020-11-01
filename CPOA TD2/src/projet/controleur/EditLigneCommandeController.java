@@ -1,5 +1,18 @@
 package projet.controleur;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
 import projet.metier.LigneCommande;
@@ -14,27 +27,18 @@ public class EditLigneCommandeController {
 	private Label labelAffichage;
 	@FXML
 	private TextField textFieldLigneCommandeQuantite;
-	@FXML
-	private TextField textFieldLigneCommandeTarif;
 
 	@FXML
 	public void initialize() throws SQLException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
 		buttonValider.setDisable(true);
-		///////////////////////////////////////////////////////////////////////////////////////////// quantite
-		///////////////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////////////// PageLigneCommandeController.getLigneCommande().getquantite();
-		//////////////////////////////////////////////////////////////////////////////////////////// LigneCommande
-		///////////////////////////////////////////////////////////////////////////////////////////// lignecom
-		///////////////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////////////// dao.getLigneCommandeDAO().getById(quantite);
-		textFieldLigneCommandeQuantite.setText(lignecom.getQuantite());
-		textFieldLigneCommandeTarif.setText(lignecom.getTarif());
+		LigneCommande lignecom = dao.getLigneCommandeDAO().getById(PageCommandeController.getLigneCommande().getIdcom(), PageCommandeController.getLigneCommande().getIdprod());
+		textFieldLigneCommandeQuantite.setText(String.valueOf(lignecom.getQuantite()));
 	}
 
 	@FXML
 	public void clickOnReturn(ActionEvent e) throws IOException {
-		Parent LigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/pagelignecommande.fxml"));
+		Parent LigneCommande = FXMLLoader.load(getClass().getResource("/projet/FXML/pagecommande.fxml"));
 		Scene LigneCommandescene = new Scene(LigneCommande);
 		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		window.setScene(LigneCommandescene);
@@ -46,27 +50,21 @@ public class EditLigneCommandeController {
 	@FXML
 	public void majLabelAffichage(ActionEvent e) throws SQLException, IOException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		///////////////////////////////////////////////////////////////////////////////////// int
-		///////////////////////////////////////////////////////////////////////////////////// id
-		///////////////////////////////////////////////////////////////////////////////////// =
-		///////////////////////////////////////////////////////////////////////////////////// PageLigneCommandeController.getLigneCommande().getId();
-		int quantite = textFieldLigneCommandeQuantite.getText().trim();
-		float tarif = textFieldLigneCommandeTarif.getText().trim();
+		int idcom = PageCommandeController.getLigneCommande().getIdcom();
+		int idprod = PageCommandeController.getLigneCommande().getIdprod();
+		int quantite = Integer.valueOf(textFieldLigneCommandeQuantite.getText().trim());
+		LigneCommande lignecom = dao.getLigneCommandeDAO().getById(PageCommandeController.getLigneCommande().getIdcom(), PageCommandeController.getLigneCommande().getIdprod());
 
-		labelAffichage.setText(quantite + "," + tarif);
-		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
-
-		LigneCommande lignecom = new LigneCommande(quantite, tarif);
-		dao.getCategorieDAO().update(lignecom);
+		LigneCommande lignecom2 = new LigneCommande(lignecom.getIdcom(), lignecom.getIdprod(), quantite, lignecom.getTarif());
+		dao.getLigneCommandeDAO().update(lignecom2);
 		clickOnReturn(e);
 	}
 
 	@FXML
 	public void keyReleasedProperty() {
-		int quantite = textFieldLigneCommandeQuantite.getText();
-		float tarif = textFieldLigneCommandeTarif.getText();
+		int quantite = Integer.valueOf(textFieldLigneCommandeQuantite.getText().trim());
 
-		boolean isDisabled = (quantite == 0 || tarif == 0);
+		boolean isDisabled = (quantite == 0);
 		buttonValider.setDisable(isDisabled);
 	}
 }

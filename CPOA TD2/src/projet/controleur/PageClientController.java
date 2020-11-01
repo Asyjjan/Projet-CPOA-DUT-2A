@@ -2,7 +2,14 @@ package projet.controleur;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +19,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
 import projet.metier.Client;
+import projet.metier.Produit;
 
 public class PageClientController {
 	
@@ -26,6 +35,7 @@ public class PageClientController {
 	@FXML private Button buttonDelete;
 	@FXML private Button buttonEdit;
 	@FXML private Button buttonReturn;
+	@FXML private TextField textFieldFiltreNom;
 	@FXML private TableView<Client> tableViewClient;
 	@FXML private TableColumn<Client, String> tableColumnNom;
 	@FXML private TableColumn<Client, String> tableColumnPrenom;
@@ -45,7 +55,7 @@ public class PageClientController {
 		loadData();
 		buttonDelete.setDisable(true);
 		buttonEdit.setDisable(true);
-	}
+	}    
 	
 	@FXML public void clickOnAdd(ActionEvent e) throws IOException {
 		Parent addClient = FXMLLoader.load(getClass().getResource("/projet/FXML/ajoutclient.fxml"));
@@ -105,6 +115,7 @@ public class PageClientController {
         this.tableColumnPays.setCellValueFactory(new PropertyValueFactory<>("adrpays"));
         try {
                     this.tableViewClient.getItems().addAll(dao.getClientDAO().findAll());
+                    
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -113,5 +124,56 @@ public class PageClientController {
 	@FXML public void clickOnTable() {
 		buttonDelete.setDisable(false);
 		buttonEdit.setDisable(false);
+	}
+	
+	//Renvoie une liste des produits qui possedent un nom correspondant a la demande
+	@FXML public ArrayList<Client> filtreNom() {
+		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
+		String nom = textFieldFiltreNom.getText().trim().toLowerCase();
+		ArrayList<Client> listeClient = new ArrayList<Client>();
+		try {
+			if (nom.equals("")) {
+				listeClient.addAll(dao.getClientDAO().findAll());
+			}
+			else {
+				for (Client client : dao.getClientDAO().findAll()) {
+					if (client.getNom().toLowerCase().contains(nom) || client.getPrenom().toLowerCase().contains(nom)) {
+						listeClient.add(client);
+					}
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listeClient;
+	}
+	
+	//Rassemble toute les listes des donnees filtrees et fait un ET exclusif des donnees
+	@FXML public void filtrageNom() {
+		ArrayList<Client> clientNom = filtreNom();
+		ObservableList<Client> listeClientSelect = FXCollections.observableArrayList();
+		ObservableList<Client> listeClientSurplus = FXCollections.observableArrayList();
+		ObservableList<Client> listeClienttMino = FXCollections.observableArrayList();
+
+		for (Client client : clientNom) {
+			if (clientNom.contains(client))
+				listeClientSelect.add(client);
+		}
+		//On enleve de la tableView tout produit non present dans listeProdSelect mais present dans la tableView
+		ObservableList<Client> trans1 = tableViewClient.getItems();
+		for (Client client : trans1) {
+			if (!listeClientSelect.contains(client))
+				listeClientSurplus.add(client);
+		}
+
+		//On rajoute dans la tableView tout produit present dans listeProdSelect mais non present dans la tableView
+		ObservableList<Client> trans2 = tableViewClient.getItems();
+		for (Client client : listeClientSelect ) {
+			if (!trans2.contains(client))
+				listeClienttMino.add(client);
+		}
+
+		tableViewClient.getItems().removeAll(listeClientSurplus);
+		tableViewClient.getItems().addAll(listeClienttMino);
 	}
 }
