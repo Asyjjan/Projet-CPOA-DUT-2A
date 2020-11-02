@@ -42,7 +42,7 @@ public class EditCategorieController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Categoriescene);
 		window.centerOnScreen();
-		window.setTitle("Categorie");
+		window.setTitle("Page catégorie");
 		window.show();
 	}
 	
@@ -51,9 +51,6 @@ public class EditCategorieController {
 		int id = PageCategorieController.getCategorie().getIdcateg();
 		String titre = textFieldTitreCategorie.getText().trim();
 		String visuel = textFieldVisuelCategorie.getText().trim();
-
-		labelAffichage.setText(titre + "," + visuel);
-		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		
 		Categorie categ = new Categorie(id, titre, visuel);
 		dao.getCategorieDAO().update(categ);

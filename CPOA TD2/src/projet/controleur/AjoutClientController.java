@@ -51,8 +51,6 @@ public class AjoutClientController {
 		String ville = textFieldVilleClient.getText().trim();
 		String pays = textFieldPaysClient.getText().trim();
 
-		labelAffichage.setText(nom + "," + prenom + "," + id + "," + mdp + "," + adrnum + "," + adrvoie + "," + codepostal + "," + ville + "," + pays);
-		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		Client client = new Client(0, nom, prenom, id, mdp, adrnum, adrvoie, codepostal, ville, pays);
 		dao.getClientDAO().create(client);
 		
@@ -84,7 +82,7 @@ public class AjoutClientController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Clientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Page client");
 		window.show();
 	}
 }

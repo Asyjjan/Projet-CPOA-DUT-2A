@@ -50,13 +50,9 @@ public class AjoutProduitController{
 		Categorie Categ = choiceBoxCateg.getValue();
 
 		if(Categ == null) {
-			labelAffichage.setText("Veuillez remplir tous les champs");
-			labelAffichage.setStyle("-fx-text-fill: red; -fx-font-size: 11pt;");
 		}
 		else {
 			float tarif = Float.parseFloat(str);
-			labelAffichage.setText(nom + ", (" + Categ + "), " + tarif + " euros");
-			labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 			Produit prod = new Produit(15, nom, desc, tarif, "*", Categ.getIdcateg());
 			dao.getProduitDAO().create(prod);
 			clickOnReturn(e);
@@ -79,7 +75,7 @@ public class AjoutProduitController{
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(returnProduitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Page produit");
 		window.show();
 	}
 }

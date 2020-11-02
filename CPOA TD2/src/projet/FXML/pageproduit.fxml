@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="986.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.PageProduitController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="639.0" prefWidth="1087.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="projet.controleur.PageProduitController">
    <children>
       <HBox layoutX="-5.0" layoutY="-5.0" prefHeight="649.0" prefWidth="991.0">
          <children>
@@ -62,7 +62,7 @@
                   </Button>
                </children>
             </VBox>
-            <VBox prefHeight="649.0" prefWidth="841.0">
+            <VBox maxWidth="-Infinity" minWidth="-Infinity" prefHeight="650.0" prefWidth="943.0">
                <children>
                   <FlowPane prefHeight="87.0" prefWidth="841.0">
                      <children>
@@ -97,13 +97,14 @@
                            </FlowPane.margin>
                         </TextField>
                      </children></FlowPane>
-                  <TableView fx:id="tableViewProduit" onMouseClicked="#clickOnTable" prefHeight="559.0" prefWidth="841.0">
+                  <TableView fx:id="tableViewProduit" onMouseClicked="#clickOnTable" prefHeight="559.0" prefWidth="903.0">
                     <columns>
                       <TableColumn fx:id="tableColumnNom" prefWidth="151.0" text="Nom" />
                       <TableColumn fx:id="tableColumnDesc" prefWidth="143.0" text="Description" />
                         <TableColumn fx:id="tableColumnTarif" prefWidth="161.0" text="Tarif" />
-                        <TableColumn fx:id="tableColumnVisuel" prefWidth="178.0" text="Visuel" />
-                        <TableColumn fx:id="tableColumnCategorie" prefWidth="205.0" text="Categorie" />
+                        <TableColumn fx:id="tableColumnVisuel" prefWidth="150.0" text="Visuel" />
+                        <TableColumn fx:id="tableColumnCategorie" prefWidth="195.0" text="Categorie" />
+                        <TableColumn fx:id="tableColumnQuantite" prefWidth="141.0" text="Quantite commandé" />
                     </columns>
                   </TableView>
                </children>

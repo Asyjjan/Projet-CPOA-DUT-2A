@@ -3,6 +3,7 @@ package projet.controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -14,10 +15,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
@@ -45,6 +49,7 @@ public class PageProduitController {
 	@FXML private TableColumn<Produit, String> tableColumnTarif;
 	@FXML private TableColumn<Produit, String> tableColumnVisuel;
 	@FXML private TableColumn<Produit, String> tableColumnCategorie;
+	@FXML private TableColumn<Produit, Integer> tableColumnQuantite;
 
 	public static Produit getProduit() {
 		return produit;
@@ -62,7 +67,7 @@ public class PageProduitController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(addProduitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Ajout d'un produit");
 		window.show();
 	}
 
@@ -72,12 +77,22 @@ public class PageProduitController {
 		Allpeople = tableViewProduit.getItems();
 		Ligneselect = tableViewProduit.getSelectionModel().getSelectedItems();
 
-		for(Produit prod : Ligneselect)
-		{
-			Allpeople.remove(prod);
-			System.out.println(prod);
-			dao.getProduitDAO().delete(prod);
-		}     
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Suppresion d'un client");
+		alert.setHeaderText("Êtes vous sur de vouloir supprimer ce client ?");
+
+		Optional<ButtonType> option = alert.showAndWait();
+		if (option.get() == null) {
+		} else if (option.get() == ButtonType.OK) {
+			for(Produit prod : Ligneselect)
+			{
+				Allpeople.remove(prod);
+				System.out.println(prod);
+				dao.getProduitDAO().delete(prod);
+			}  
+		}
+		else if (option.get() == ButtonType.CANCEL) {
+		}       
 	}
 
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
@@ -87,7 +102,7 @@ public class PageProduitController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(editProduitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Modification d'un produit");
 		window.show();
 	}
 
@@ -97,7 +112,7 @@ public class PageProduitController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(returnProduitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Application de gestion commercial");
 		window.show();
 	}
 
@@ -115,6 +130,21 @@ public class PageProduitController {
                     e.printStackTrace();
                 }
                 return null;
+            }
+        });
+		this.tableColumnQuantite.setCellValueFactory(new Callback<CellDataFeatures<Produit, Integer>, ObservableValue<Integer>>() {
+            public ObservableValue<Integer> call(CellDataFeatures<Produit, Integer> p) {
+                int quantite = 0;
+                int idprod = p.getValue().getIdprod();
+                try {
+                    for (LigneCommande lc : dao.getLigneCommandeDAO().findAll()) {
+                        if (lc.getIdprod() == idprod) 
+                            quantite += lc.getQuantite();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return new SimpleObjectProperty<Integer>(quantite);
             }
         });
 		try {

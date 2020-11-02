@@ -53,7 +53,7 @@ public class EditProduitController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Produitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Page produit");
 		window.show();
 	}
 	
@@ -66,8 +66,6 @@ public class EditProduitController {
 		Categorie Categ = choiceBoxCateg.getValue();
 
 		if(Categ == null) {
-			labelAffichage.setText("Veuillez remplir tous les champs");
-			labelAffichage.setStyle("-fx-text-fill: red; -fx-font-size: 11pt;");
 		}
 		else {
 			float tarif = Float.parseFloat(str);

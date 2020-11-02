@@ -56,7 +56,7 @@ public class EditClientController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Clientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Page client");
 		window.show();
 	}
 	
@@ -72,9 +72,6 @@ public class EditClientController {
 		String codepostal = textFieldCodePostalClient.getText().trim();
 		String ville = textFieldVilleClient.getText().trim();
 		String pays = textFieldPaysClient.getText().trim();
-
-		labelAffichage.setText(nom + "," + prenom + "," + id + "," + mdp + "," + adrnum + "," + adrvoie + "," + codepostal + "," + ville + "," + pays);
-		labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
 		
 		Client client = new Client(id, nom, prenom, identifiant, mdp, adrnum, adrvoie, codepostal, ville, pays);
 		dao.getClientDAO().update(client);

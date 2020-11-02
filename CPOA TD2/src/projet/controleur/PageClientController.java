@@ -3,6 +3,7 @@ package projet.controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -16,14 +17,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
+import projet.metier.Categorie;
 import projet.metier.Client;
 import projet.metier.Produit;
 
@@ -63,7 +68,7 @@ public class PageClientController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(addClientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Ajout d'un client");
 		window.show();
 	}
 	
@@ -73,12 +78,22 @@ public class PageClientController {
         Allpeople = tableViewClient.getItems();
         Ligneselect = tableViewClient.getSelectionModel().getSelectedItems();
         
-        for(Client cl : Ligneselect)
-        {
-            Allpeople.remove(cl);
-            System.out.println(cl);
-            dao.getClientDAO().delete(cl);
-        }     
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Suppresion d'un client");
+		alert.setHeaderText("Êtes vous sur de vouloir supprimer ce client ?");
+
+		Optional<ButtonType> option = alert.showAndWait();
+		if (option.get() == null) {
+		} else if (option.get() == ButtonType.OK) {
+			for(Client cl : Ligneselect)
+	        {
+	            Allpeople.remove(cl);
+	            System.out.println(cl);
+	            dao.getClientDAO().delete(cl);
+	        }    
+		}
+		else if (option.get() == ButtonType.CANCEL) {
+		} 
 	}
 	
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
@@ -88,7 +103,7 @@ public class PageClientController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(editClientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Modification d'un client");
 		window.show();
 	}
 	
@@ -98,7 +113,7 @@ public class PageClientController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(returnClientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Application de gestion commercial");
 		window.show();
 	}
 	

@@ -29,7 +29,7 @@ public class MainController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Clientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Page client");
 		window.show();
 	}
 	
@@ -39,7 +39,7 @@ public class MainController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Produitscene);
 		window.centerOnScreen();
-		window.setTitle("Produit");
+		window.setTitle("Page produit");
 		window.show();
 	}
 	
@@ -49,7 +49,7 @@ public class MainController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(categorieScene);
 		window.centerOnScreen();
-		window.setTitle("Categorie");
+		window.setTitle("Page catégorie");
 		window.show();
 	}
 	
@@ -59,7 +59,7 @@ public class MainController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(commandeScene);
 		window.centerOnScreen();
-		window.setTitle("Commande");
+		window.setTitle("Page commande");
 		window.show();
 	}
 

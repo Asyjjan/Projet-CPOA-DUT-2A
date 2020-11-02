@@ -3,6 +3,7 @@ package projet.controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -14,12 +15,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import javafx.util.Callback;
@@ -39,6 +43,7 @@ public class PageCommandeController {
 	@FXML private Button buttonDelete;
 	@FXML private Button buttonEdit;
 	@FXML private Button buttonReturn;
+	@FXML private Button buttonCommande;
 	@FXML private TextField textFieldFiltreCommande;
 	@FXML private TableView<LigneCommande> tableViewLigneCommande;
 	@FXML private TableColumn<LigneCommande, Integer> tableColumnCommande;
@@ -63,7 +68,7 @@ public class PageCommandeController {
 		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
 		window.setScene(addLigneCommandescene);
 		window.centerOnScreen();
-		window.setTitle("Commande");
+		window.setTitle("Ajout d'une ligne commande");
 		window.show();
 	}
 	
@@ -73,12 +78,22 @@ public class PageCommandeController {
         Allpeople = tableViewLigneCommande.getItems();
         Ligneselect = tableViewLigneCommande.getSelectionModel().getSelectedItems();
         
-        for(LigneCommande lignecom : Ligneselect)
-        {
-            Allpeople.remove(lignecom);
-            System.out.println(lignecom);
-            dao.getLigneCommandeDAO().delete(tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdcom(), tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdprod());
-        }     
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Suppresion d'un client");
+		alert.setHeaderText("Êtes vous sur de vouloir supprimer ce client ?");
+
+		Optional<ButtonType> option = alert.showAndWait();
+		if (option.get() == null) {
+		} else if (option.get() == ButtonType.OK) {
+	        for(LigneCommande lignecom : Ligneselect)
+	        {
+	            Allpeople.remove(lignecom);
+	            System.out.println(lignecom);
+	            dao.getLigneCommandeDAO().delete(tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdcom(), tableViewLigneCommande.getSelectionModel().getSelectedItem().getIdprod());
+	        }    
+		}
+		else if (option.get() == ButtonType.CANCEL) {
+		}   
 	}
 	
 	@FXML public void clickOnEdit(ActionEvent e) throws IOException {
@@ -88,7 +103,7 @@ public class PageCommandeController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(editLigneCommandescene);
 		window.centerOnScreen();
-		window.setTitle("LigneCommande");
+		window.setTitle("Modification d'une ligne commande");
 		window.show();
 	}
 	
@@ -98,7 +113,7 @@ public class PageCommandeController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(returnClientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Application de gestion commercial");
 		window.show();
 	}
 	
@@ -183,5 +198,15 @@ public class PageCommandeController {
 
 		tableViewLigneCommande.getItems().removeAll(listeLigneCommandeSurplus);
 		tableViewLigneCommande.getItems().addAll(listeLigneCommandetMino);
+	}
+	
+	@FXML public void clickForCommand(ActionEvent e) throws IOException {
+		Parent Commande = FXMLLoader.load(getClass().getResource("/projet/FXML/commande.fxml"));
+		Scene Commandescene = new Scene(Commande);
+		Stage window = (Stage) ((Node) e.getSource()).getScene().getWindow();
+		window.setScene(Commandescene);
+		window.centerOnScreen();
+		window.setTitle("Commande");
+		window.show();
 	}
 }

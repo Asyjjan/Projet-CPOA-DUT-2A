@@ -108,7 +108,7 @@ public class MySQLClientDAO implements ClientDAO {
 		ArrayList<Client> liste = new ArrayList<Client>();
 		Connection laConnexion = Connexion.creeConnexion();
 		Statement requete = laConnexion.createStatement();
-		ResultSet res = requete.executeQuery("SELECT * FROM Client");
+		ResultSet res = requete.executeQuery("SELECT * FROM Client ORDER BY nom ASC");
 		while (res.next()) {
 			int idC = res.getInt(1);
 			String nom = res.getString(2);

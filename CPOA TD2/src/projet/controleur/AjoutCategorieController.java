@@ -55,7 +55,7 @@ public class AjoutCategorieController {
 		Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
 		window.setScene(Clientscene);
 		window.centerOnScreen();
-		window.setTitle("Client");
+		window.setTitle("Page catégorie");
 		window.show();
 	}
 }
