@@ -36,8 +36,6 @@ public class AjoutCategorieController {
 		String titre = textFieldCategorieTitre.getText().trim();
 		String visuel = textFieldCategorieVisuel.getText().trim();
 
-			labelAffichage.setStyle("-fx-text-fill: black; -fx-font-size: 11pt;");
-			labelAffichage.setText("La catégorie : " + titre + " à été ajoutée");
 			Categorie categ = new Categorie(0, titre, visuel);
 			dao.getCategorieDAO().create(categ);
 			clickOnReturn(e);
