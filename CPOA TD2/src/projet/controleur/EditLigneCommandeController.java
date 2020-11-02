@@ -3,6 +3,8 @@ package projet.controleur;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,12 +12,15 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import projet.dao.DAOFactory;
 import projet.dao.Persistance;
+import projet.metier.Commande;
 import projet.metier.LigneCommande;
+import projet.metier.Produit;
 
 public class EditLigneCommandeController {
 
@@ -50,11 +55,8 @@ public class EditLigneCommandeController {
 	@FXML
 	public void majLabelAffichage(ActionEvent e) throws SQLException, IOException {
 		DAOFactory dao = DAOFactory.getDAOFactory(Persistance.MYSQL);
-		int idcom = PageCommandeController.getLigneCommande().getIdcom();
-		int idprod = PageCommandeController.getLigneCommande().getIdprod();
 		int quantite = Integer.valueOf(textFieldLigneCommandeQuantite.getText().trim());
 		LigneCommande lignecom = dao.getLigneCommandeDAO().getById(PageCommandeController.getLigneCommande().getIdcom(), PageCommandeController.getLigneCommande().getIdprod());
-
 		LigneCommande lignecom2 = new LigneCommande(lignecom.getIdcom(), lignecom.getIdprod(), quantite, lignecom.getTarif());
 		dao.getLigneCommandeDAO().update(lignecom2);
 		clickOnReturn(e);
