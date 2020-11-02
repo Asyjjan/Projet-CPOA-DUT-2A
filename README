@@ -1,0 +1,70 @@
+Projet CPOA par Gisonni Sylvio et Louis Schneider 
+---------------------------------------------------------------
+
+Page principale : 
+- Chaque bouton renvoie à la page de gestion de chaque attribut de la base de données.
+- Seulement en SQL (Pas la possibilité de tester en ListeMémoire).
+
+---------------------------------------------------------------
+
+Page Client :
+- On peut rechercher un client par son nom, la table est triable par le nom et par la ville.
+- On peut ajouter supprimer et modifié un client.
+
+---------------------------------------------------------------
+
+Page Catégorie : 
+- On peut ajouter supprimer et modifié une catégorie.
+
+---------------------------------------------------------------
+
+Page Produit : 
+- On peut rechercher un produit par son nom.
+- On peut rechercher un produit par son tarif (inférieur au n indiqué).
+- On peut rechercher un produit par sa catégorie.
+- On peut faire une recherche un peu plus détaillé (utilisant nom et tarif et categ) mais n'ayant pas tester sur énormément de cas, je n'affirmerai pas que cela fonctionne à 100%.
+- On peut consulter le nombre de fois que le produit a été commandé.
+- On peut ajouter, modifier et supprimer un produit.
+
+---------------------------------------------------------------
+
+Page Commande : 
+- Pas la possibilité de rechercher une commande par le nom du client.
+- Pas la possibilité de rechercher une commande par le nom du produit.
+- Possibilité de chercher une commande par son numéro de commande.
+- Possibilité d'ajouter une ligne commande (si une ligne commande existante ne contient pas déjà le numéro de commande et le produit que l'on veut ajouter).
+- Possibilité de supprimer une ligne commande.
+- Possibilité de supprimer une commande qui entraine le suppression de toute les lignes commandes correspondante à la commande.
+- La modification d'une ligne commande ne fonctionne pas malgré le code (erreur de SQL que j'ai essayer de résoudre en vein..)
+
+---------------------------------------------------------------
+
+Répartition du travail : 
+
+Sylvio : 
+- Tous les controleur
+- Main
+- 80% du SQL (correction, réadaptation.. de ce que Louis avait fais pendant les premier TD)
+- Toutes les classes métier
+- Tous les modèles
+- ListeMémoire
+- Tous les utilitaires
+- 80% des pages FXML (90% des pages de gestions, 80% des pages d'ajout et 50% des pages de modification)
+- Correction du code dans l'ensemble (95%...)
+
+Louis : 
+- DAOFactory
+- 1ère version des requêtes SQL durant les TD
+- FXML des pages de modifications
+
+---------------------------------------------------------------
+
+Répartition du travail dans le projet rendu en pourcentage : 
+
+d'après Sylvio : 
+Sylvio : 75%
+Louis : 25%
+
+daprès Louis : 
+Sylvio : 60%
+Louis : 40%
